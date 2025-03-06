@@ -1,0 +1,347 @@
+@import url("https://fonts.googleapis.com/css2?family=Cairo:slnt,wght@-11..11,200..1000&display=swap");
+
+@import "fonts.css";
+@import "navbar.css";
+@import "home.css";
+
+@import "react-toastify/dist/ReactToastify.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: "Cairo";
+}
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  @apply bg-white text-gray;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+.text-sm {
+  @apply leading-6;
+}
+* {
+  @apply !font-cairo;
+}
+*:not(.ant-select-dropdown, .ant-select-dropdown *) {
+  scroll-behavior: smooth;
+}
+html {
+  @apply sm:text-[14px] sm:text-[15px] md:text-[16px];
+}
+body {
+  /* @apply !pt-0; */
+  @apply !font-cairo;
+}
+section,
+footer,
+header {
+  @apply overflow-x-clip;
+}
+.ant-form *,
+.ant-form input,
+.ant-form ::placeholder,
+.ant-input::placeholder,
+.ant-input,
+::-webkit-input-placeholder,
+:-ms-input-placeholder,
+::placeholder,
+input,
+.ant-input-affix-wrapper,
+.ant-input-affix-wrapper > input.ant-input,
+.ant-input-group-wrapper,
+.ant-input-group,
+.ant-input-group > .ant-input {
+  @apply !font-cairo;
+}
+
+#nprogress {
+  @apply fixed !left-0 !top-0 !z-[99999] !h-full !w-full !bg-kafalaPrimary;
+}
+
+#nprogress .bar {
+  @apply !hidden;
+}
+#nprogress .spinner {
+  @apply !bottom-[initial] !left-[50%] !right-[initial] !top-[50%] !translate-x-[-50%] !translate-y-[-50%];
+}
+#nprogress .spinner-icon {
+  @apply !h-[50px] !w-[50px] !border-[7px] !border-l-white !border-t-white;
+}
+::-webkit-scrollbar {
+  @apply !w-[7px];
+}
+::-webkit-scrollbar-track {
+  @apply rounded-[10px] bg-white shadow-[inset_0_0_5px_rgba(0,0,0,0.2)];
+}
+::-webkit-scrollbar-thumb {
+  @apply rounded-[10px] bg-kafalaPrimary;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-kafalaPrimary;
+}
+.sm-scroll::-webkit-scrollbar {
+  @apply !w-[5px];
+}
+.sm-scroll::-webkit-scrollbar-thumb {
+  @apply !rounded-[5px];
+}
+/* .guarantee-item {
+  @apply ;
+} */
+/* .kidCard .address {
+  @apply !text-gray-300 mt-1;
+} */
+.kidsSwiperContainer {
+  @apply relative;
+}
+.kidsSwiper .swiper-pagination {
+  @apply hidden;
+}
+.swiper-button-next {
+  @apply !left-0 !top-5 !h-8 !w-8;
+}
+.swiper-button-next:after {
+  @apply !h-4 !w-4 !text-xl;
+}
+.swiper-button-prev {
+  @apply !left-14 !right-[initial] !top-5 !h-8 !w-8;
+}
+.swiper-button-prev:after {
+  @apply !h-4 !w-4 !text-xl;
+}
+html[dir="ltr"] .kids-header .custom-prev svg,
+html[dir="ltr"] .kids-header .custom-next svg {
+  @apply !rotate-180;
+}
+
+/* .kidsSwiperContainer .custom-prev {
+  @apply absolute !left-14 !right-[initial] !top-5;
+}
+.kidsSwiperContainer .custom-next {
+  @apply absolute !left-0 !top-5;
+}
+.kidsSwiperContainer .custom-prev,
+.kidsSwiperContainer .custom-next {
+  @apply 
+} */
+.main-btn {
+  @apply mt-7 h-[45px] w-[200px] rounded-full border border-solid border-kafalaPrimary bg-white text-lg text-kafalaPrimary duration-300 hover:border-kafalaPrimary-400 hover:bg-kafalaPrimary hover:text-white;
+}
+.auth-form {
+  @apply mt-2 lg:mt-4;
+}
+.auth-form .ant-form-item {
+  @apply !mb-3;
+}
+.auth-form .form-input {
+  @apply rounded-lg bg-white;
+}
+.auth-form .form-input.ant-input-affix-wrapper .ant-input-prefix {
+  @apply me-2 text-gray-200;
+}
+.ant-input-affix-wrapper,
+.ant-select {
+  @apply border-gray-200 hover:!border-kafalaPrimary-300;
+}
+.ant-select-focused {
+  @apply border-kafalaPrimary-300;
+  box-shadow: 0 0 2px rgba(5, 145, 255, 0.5) !important;
+}
+.ant-select-selector {
+  @apply !border-none;
+}
+.login-form .ant-form-item-required,
+.main-form .ant-form-item-required,
+.sign-up-form .ant-form-item-required {
+  @apply before:!hidden;
+}
+/* .ant-input-affix-wrapper {
+  @apply !border-gray-200;
+} */
+.ant-select-dropdown {
+  @apply border border-solid !border-gray-200;
+}
+.main-kafala-btn {
+  @apply h-[45px] w-[200px] rounded-full border border-solid text-lg duration-300;
+}
+.btn-kafala-primary {
+  @apply border-kafalaPrimary bg-kafalaPrimary text-white hover:!border-kafalaPrimary-400 hover:!bg-kafalaPrimary-400 hover:!text-white;
+}
+.btn-kafala-primary-outline {
+  @apply border-kafalaPrimary bg-white text-kafalaPrimary hover:!border-kafalaPrimary hover:!bg-kafalaPrimary hover:!text-white;
+}
+.authLayoutParent {
+  background-size: 720px;
+}
+.white-spin .ant-spin-dot-item {
+  @apply !bg-white;
+}
+.kids-list-page .kidCard {
+  @apply bg-kafalaLight;
+}
+
+.data-pagination {
+  @apply mt-8;
+}
+
+.data-pagination .ant-pagination-prev,
+.data-pagination .ant-pagination-next,
+.data-pagination .ant-pagination-item {
+  @apply relative flex h-8 w-8 !items-center !justify-center overflow-hidden rounded-lg border border-kafalaPrimary bg-white !text-kafalaPrimary;
+}
+.data-pagination .anticon {
+  @apply absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%];
+}
+.data-pagination .ant-pagination-item * {
+  @apply mb-[-1px] font-normal !text-kafalaPrimary;
+}
+.data-pagination .ant-pagination-item-active {
+  @apply !border-kafalaPrimary !bg-kafalaPrimary !text-white;
+}
+.data-pagination .ant-pagination-item-active * {
+  @apply !text-white;
+}
+.data-pagination .ant-pagination-prev svg,
+.data-pagination .ant-pagination-next svg {
+  @apply fill-kafalaPrimary !stroke-kafalaPrimary;
+}
+
+.data-pagination .ant-pagination {
+  @apply flex items-center justify-center gap-1;
+}
+.data-pagination .ant-pagination-options {
+  @apply !hidden;
+}
+.filter .ant-input-group-addon {
+  @apply !border-none !bg-transparent;
+}
+.filter .search-input {
+  @apply !bg-transparent;
+}
+.search-input input {
+  @apply !border-none !bg-transparent;
+}
+.search-input input,
+.search-input .ant-input-wrapper {
+  @apply h-full !shadow-none !outline-none;
+}
+.search-input .ant-input-wrapper {
+  @apply bg-gray-100;
+}
+
+.filter-btn,
+.search-input,
+.filter .ant-select {
+  @apply overflow-hidden rounded-lg border border-solid !border-gray-600;
+}
+.filter-btn {
+  @apply h-[40px] min-w-[100px] duration-300 hover:!border-kafalaPrimary hover:!text-kafalaPrimary;
+}
+.filter-btn > span {
+  @apply flex items-center gap-2;
+}
+.filter-btn.without-borders {
+  @apply !w-auto min-w-[50px] !border-none !shadow-none !outline-none;
+}
+.filter-group {
+  @apply min-w-[200px];
+}
+.aboutCard:nth-child(1) {
+  @apply rotate-[15deg];
+}
+.aboutCard:nth-child(2) {
+  @apply rotate-[-3deg];
+}
+.aboutCard:nth-child(3) {
+  @apply rotate-[-15deg];
+}
+.aboutCard:nth-child(4) {
+  @apply rotate-[-1deg];
+}
+.aboutCard:nth-child(5) {
+  @apply z-10 rotate-[-15deg];
+}
+.aboutCard:nth-child(6) {
+  @apply rotate-[16deg];
+}
+.main-upload-input .ant-upload,
+.main-upload-input .main-upload-input-btn {
+  width: 100%;
+  display: block;
+}
+.main-upload-input .main-upload-input-btn {
+  padding: 20px 12px;
+  text-align: center;
+  /* height: 80px; */
+  border: 1px dashed #dee2e6;
+  font-size: 16px;
+  display: flex;
+  gap: 10px;
+}
+/* .ant-upload-list-item {
+  height: 80px !important;
+} */
+.main-upload-input .ant-upload-list-item,
+.main-upload-input .main-upload-input-btn {
+  height: 80px !important;
+  margin-bottom: 16px;
+}
+/* Container holding the PhoneInput component */
+.student-phone {
+  @apply flex h-[40px] items-center overflow-hidden rounded-full border bg-white pr-2; /* Adjust the padding-right to minimize the space */
+}
+
+/* Input field */
+.student-phone input {
+  direction: ltr;
+  @apply h-full flex-1 border-none px-[11px] py-[4px] text-start shadow-none outline-none;
+}
+
+/* Hide the country name */
+.student-phone .PhoneInputCountrySelectLabel {
+  display: none !important;
+}
+
+/* Flag and arrow container */
+.student-phone .PhoneInputCountry {
+  @apply flex items-center;
+}
+.PhoneInputCountrySelect {
+  width: 16px;
+  outline: none;
+}
+/* Flag styling */
+.student-phone .PhoneInputCountryIcon {
+  @apply ml-1 h-[20px] w-[30px];
+}
+
+/* Dropdown arrow styling */
+.student-phone .PhoneInputCountrySelectArrow {
+  @apply ml-1;
+}
+
+/* Remove the border on focus */
+.student-phone input:focus {
+  border: none;
+  outline: none;
+}

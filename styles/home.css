@@ -1,0 +1,74 @@
+.main-sections {
+  @apply py-10;
+}
+.section-title {
+  @apply text-gray mb-4 text-2xl font-bold lg:mb-6 lg:text-3xl;
+}
+.section-subtitle {
+  @apply text-gray mb-3 text-xl font-bold font-semibold;
+}
+.section-desc {
+  @apply text-gray text-sm leading-6;
+}
+/* Start Header */
+header {
+  @apply min-h-screen;
+}
+
+@media (min-width: 1024px) {
+  header .header-overlay {
+    clip-path: circle(500vh at 50% -400vh);
+  }
+}
+/* .statistic-line {
+    @apply
+} */
+
+.header-swiper-img {
+  @apply overflow-hidden rounded-ee-[110px] rounded-es-[0px] rounded-se-[110px] rounded-ss-[110px];
+}
+header .swiper {
+  @apply pb-4;
+}
+.swiper-content {
+  @apply h-[250px] w-[250px] md:h-[450px] md:w-[450px] lg:ms-auto;
+}
+.swiper-content .ant-image {
+  @apply !h-full !w-full;
+}
+.swiper-content .header-swiper-img {
+  @apply !h-full !w-full !object-cover;
+}
+header .swiper-pagination {
+  @apply static !inset-x-0 !left-[initial] !right-[initial] flex !w-[250px] !translate-x-0 justify-center self-end md:!w-[450px] lg:ms-auto;
+}
+header .swiper-pagination .swiper-pagination-bullet {
+  @apply !left-[initial] !right-[initial] !scale-100 !border-[#D9D9D9] bg-[#D9D9D9] opacity-100;
+}
+header .swiper-pagination .swiper-pagination-bullet-active {
+  @apply bg-kafalaPrimary !border-kafalaPrimary;
+}
+/* End Header */
+/* Start Fields */
+
+.fields-overlay {
+  background: rgba(186, 216, 216, 0.17);
+  background: linear-gradient(
+    180deg,
+    rgba(11, 114, 117, 0.05) 0%,
+    rgba(186, 216, 216, 0.17) 100%
+  );
+}
+.fields-list-item {
+  @apply border-gray-200 rounded-lg border border-solid p-4 duration-300;
+}
+.fields-list-item:hover {
+  @apply shadow-gray-100 border-white bg-white shadow-lg;
+}
+.fields-list-item .fields-list-item-icon svg * {
+  @apply !fill-kafalaPrimary duration-300;
+}
+.fields-list-item:hover .fields-list-item-icon svg * {
+  @apply !fill-gray;
+}
+/* End Fields */

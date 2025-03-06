@@ -1,0 +1,89 @@
+.kafala-navbar {
+  @apply fixed left-0 right-0 top-0 z-[999] !bg-kafalaPrimary;
+}
+
+.kafala-navbar li {
+  @apply relative;
+}
+body .kafala-navbar li,
+body .kafala-navbar .nav-item-link {
+  @apply !bg-transparent;
+}
+
+.kafala-navbar li,
+.kafala-navbar li * {
+  @apply text-[#262a2b];
+}
+.kafala-navbar li:before {
+  @apply absolute right-[-8px] top-[50%] z-10 hidden h-[25px] w-[1px] translate-y-[-50%] bg-[#4A46461C] content-[""] xl:block;
+}
+.kafala-navbar li:first-of-type::before {
+  @apply hidden;
+}
+.navbarToggled button * {
+  @apply !text-gray;
+}
+
+.navbarToggled button.btn-login:hover * {
+  @apply !text-white;
+}
+.navbarToggled button img {
+  @apply grayscale;
+}
+.navbarToggled button.btn-login {
+  @apply !border-kafalaPrimary !text-kafalaPrimary hover:!bg-kafalaPrimary hover:!text-white;
+}
+.navMenu {
+  display: flex;
+  justify-content: center;
+  color: white;
+}
+.navMenu li a {
+  color: white;
+  padding: 30px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Cairo" !important;
+  line-height: 26px;
+}
+.smallScreenUi li {
+  padding: 10px 0px !important;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.smallScreenUi li a {
+  color: black;
+  padding: 30px;
+  margin: 30px;
+}
+.smallScreenUi li:hover {
+  padding: 10px 0px !important;
+  color: white !important;
+  background-color: #0b7275 !important;
+}
+.smallScreenUi li a:hover {
+  color: white !important;
+}
+.input-wrapper .amount-input::-webkit-outer-spin-button,
+.input-wrapper .amount-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input-wrapper .amount-input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.input-wrapper .amount-input:focus::-webkit-outer-spin-button,
+.input-wrapper .amount-input:focus::-webkit-inner-spin-button {
+  display: none;
+}
+
+.input-wrapper .amount-input:focus {
+  outline: none;
+}
+.activeLink {
+  font-weight: 900 !important;
+}
