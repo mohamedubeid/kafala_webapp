@@ -3,10 +3,10 @@ const path = require("path");
 (module.exports = {
   i18n: {
     locales: ["ar", "en"],
-    fallbackLng: "ar",
     defaultLocale: "ar",
+    // fallbackLng: "ar",
     localeDetection: false,
-    localePath: path.resolve("./public/locales"),
+    // localePath: path.resolve("./public/locales"),
   },
   debug: true,
 }),
