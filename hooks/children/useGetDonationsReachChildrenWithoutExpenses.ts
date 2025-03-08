@@ -15,7 +15,7 @@ const useDonationsReachChildrenWithoutExpenses = () => {
     queryKey: ["donations_reach_children_without_expenses"],
     queryFn: getDonationsReachChildrenWithoutExpenses,
     refetchOnWindowFocus: true,
-    refetchInterval: 1000,
+    // refetchInterval: 1000,
   });
 
   return {
