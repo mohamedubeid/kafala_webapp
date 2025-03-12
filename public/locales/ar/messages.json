@@ -72,6 +72,7 @@
   "ACCOUNT_TYPE": "اختر نوع الحساب",
   "ACCOUNT_TYPE_ERROR": "هذا الحقل مطلوب",
   "GUARANTOR": "كافل يتيم",
+  "CHILD_GUARDIAN": "وصي الطفل",
   "SAVE_BTN": "حفظ",
   "NO_ACCESS_WARNING": "ليس لديك إذن للوصول إلى هذه الصفحة"
 }
