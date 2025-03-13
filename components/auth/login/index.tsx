@@ -51,7 +51,10 @@ const Login = () => {
 
   useEffect(() => {
     if (user) {
-      if (user.authorities?.includes("ROLE_GUARANTOR")) {
+      if (
+        user.authorities?.includes("ROLE_GUARANTOR") ||
+        user.authorities?.includes("ROLE_CHILD_GUARDIAN")
+      ) {
         if (user?.activated) {
           router.push("/");
         }
@@ -83,12 +86,6 @@ const Login = () => {
         form={form}
         className="login-form auth-form flex w-full flex-col"
         id="login-form"
-        initialValues={{
-          authorities: [
-            authoritiesList?.find((auth) => auth?.value === "ROLE_GUARANTOR")
-              ?.value || "ROLE_GUARANTOR",
-          ],
-        }}
       >
         <Form.Item
           name="email"
