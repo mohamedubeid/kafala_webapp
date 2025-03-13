@@ -30,7 +30,8 @@ const WithAuth = <P extends object>(
       }
       if (user && !isError && !isLoading) {
         setLoading(false);
-        if (user.authorities?.includes("ROLE_GUARANTOR")) {
+        if (user.authorities?.includes("ROLE_GUARANTOR")||
+        user.authorities?.includes("ROLE_CHILD_GUARDIAN")) {
           setLoading(false);
         } else {
           setLoading(false);

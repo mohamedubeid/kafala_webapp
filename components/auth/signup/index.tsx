@@ -20,20 +20,16 @@ import { filteredCountries } from "@/helpers/phoneCountries";
 
 const SignUp = () => {
   const [formRef] = Form.useForm();
-  const { setUserData, storeResponse, storeError, storeLoading } =
-    useStoreUser();
-  const [authorities, setAuthorities] = useState<string[]>([
-    authoritiesList?.find((auth) => auth?.value === "ROLE_GUARANTOR")?.value ||
-      "ROLE_GUARANTOR",
-  ]);
+  const { setUserData, storeResponse, storeError, storeLoading } = useStoreUser();
+  const [selectedAuthority, setSelectedAuthority] = useState<string>(
+    authoritiesList?.find((auth) => auth?.value === "ROLE_GUARANTOR")?.value || "ROLE_GUARANTOR"
+  );
   const [email, setEmail] = useState<string>("");
   const { user: userData, loading } = useAuth();
   const { i18n, t: translate } = useTranslation(["messages"]);
   const [firstName, setFirstName] = useState<string>("");
   const [mobile, setMobile] = useState<string>("");
-  const [attachUrl, setAttachmentUrl] = useState<
-    { id?: number; link?: string }[]
-  >([]);
+  const [attachUrl, setAttachmentUrl] = useState<{ id?: number; link?: string }[]>([]);
   const defaultCountry = "eg";
 
   useEffect(() => {
@@ -59,11 +55,8 @@ const SignUp = () => {
       firstName: firstName,
       mobile: mobile,
       national_id: nationalId,
-      attachment:
-        attachUrl && attachUrl?.length
-          ? attachUrl[0]?.link || attachUrl[1]?.link || undefined
-          : undefined,
-      authorities,
+      attachment: attachUrl && attachUrl?.length ? attachUrl[0]?.link || attachUrl[1]?.link || undefined : undefined,
+      authorities: [selectedAuthority],
     };
     setUserData(user);
   };
@@ -129,22 +122,9 @@ const SignUp = () => {
     if (userData && !userData?.activated) {
       router.push(`/welcome?email=${email}`);
     } else if (userData) {
-      // if (userData && !userData?.infoCompleted) {
-      //   router.push("/placeholder");
-      // } else {
-      //   router.push("/");
-      // }
       router.push("/");
     }
   }, [userData, userData?.id]);
-
-  useEffect(() => {
-    formRef.setFieldValue(
-      "authorities",
-      authoritiesList?.find((auth) => auth?.value === "ROLE_GUARANTOR")
-        ?.value || "ROLE_GUARANTOR"
-    );
-  }, []);
 
   return (
     <>
@@ -155,12 +135,6 @@ const SignUp = () => {
         form={formRef}
         className="sign-up-form auth-form flex w-full flex-col"
         id="signup-form"
-        initialValues={{
-          authorities: [
-            authoritiesList?.find((auth) => auth?.value === "ROLE_GUARANTOR")
-              ?.value || "ROLE_GUARANTOR",
-          ],
-        }}
       >
         <Form.Item
           name="authorities"
@@ -176,13 +150,13 @@ const SignUp = () => {
           <Select
             id="signup-user-authorities"
             placeholder={translate("ACCOUNT_TYPE")}
-            disabled
             className="form-input h-[40px] w-full !overflow-hidden !border"
             rootClassName="!outline-none !shadow-none"
             options={authoritiesList.map((authoritiesItem) => ({
               ...authoritiesItem,
               label: translate(authoritiesItem.label),
             }))}
+            onChange={(value) => setSelectedAuthority(value)}
           />
         </Form.Item>
         <Form.Item
@@ -254,7 +228,6 @@ const SignUp = () => {
             international
             value={mobile}
             onChange={(phone) => {
-              console.log("phone", phone);
               if (phone) {
                 setMobile(phone);
               } else {
@@ -366,22 +339,6 @@ const SignUp = () => {
             placeholder={translate("CONFIRM_PASSWORD")}
           />
         </Form.Item>
-        {/* <Form.Item name="attachment" label={translate("SIGNUP_ATTACHMENT")}>
-          <Input
-            id="signup-name"
-            className="form-input h-[40px] w-full"
-            placeholder={translate("SIGNUP_ATTACHMENT")}
-            type="text"
-            value={attachment}
-            onChange={(e) => {
-              if (e.target.value) {
-                setAttachment(encodeURIComponent(e.target.value));
-              } else {
-                setAttachment("");
-              }
-            }}
-          />
-        </Form.Item> */}
 
         <div className="flex flex-col items-start">
           <MainButton

@@ -70,6 +70,7 @@
   "ACCOUNT_TYPE": "Choose Account Type",
   "ACCOUNT_TYPE_ERROR": "This field is required",
   "GUARANTOR": "Orphan Guarantor",
+  "CHILD_GUARDIAN": "Child Guardian",
   "SAVE_BTN": "SAVE",
   "NO_ACCESS_WARNING": "You don't have access to this page"
 }
