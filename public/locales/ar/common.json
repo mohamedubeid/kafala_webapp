@@ -33,5 +33,7 @@
   "CLEAR": "مسح",
   "DATE_FROM": "من",
   "DATE_TO": "الى",
-  "BY_AGE": "السن"
+  "BY_AGE": "السن",
+  "ACCOUNT": "الحساب",
+  "NAV_PROFILE": "الملف الشخصي"
 }

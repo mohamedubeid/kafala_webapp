@@ -72,5 +72,10 @@
   "GUARANTOR": "Orphan Guarantor",
   "CHILD_GUARDIAN": "Child Guardian",
   "SAVE_BTN": "SAVE",
-  "NO_ACCESS_WARNING": "You don't have access to this page"
+  "NO_ACCESS_WARNING": "You don't have access to this page",
+  "EDIT_PROFILE": "Edit Profile",
+  "NEW_PASSWORD": "New Password",
+  "CONFIRM_NEW_PASSWORD": "Confirm New Password",
+  "CHANGE_PASSWORD": "Change Password",
+  "OLD_PASSWORD": "Old Password"
 }
