@@ -31,5 +31,7 @@
   "CLEAR": "Clear",
   "DATE_FROM": "From",
   "DATE_TO": "To",
-  "BY_AGE": "Age"
+  "BY_AGE": "Age",
+  "ACCOUNT": "Account",
+  "NAV_PROFILE": "Profile",
 }

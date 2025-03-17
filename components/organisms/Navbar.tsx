@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Logo from "@/components/organisms/Logo";
-
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/router";
-import { Button } from "antd";
+import { Button, Dropdown, MenuProps } from "antd";
 import { useTranslation } from "next-i18next";
+import { UserOutlined, CaretDownOutlined } from "@ant-design/icons";
 
 type NavbarProps = {
   navbarShadow?: boolean;
@@ -22,7 +22,6 @@ const Navbar = ({
   redirectNavbar,
 }: NavbarProps) => {
   const { t: translate } = useTranslation("common");
-
   const { user, logout } = useAuth();
   const [windowWidth, setWindowWidth] = useState<number>(0);
   const [toggleNav, setToggleNav] = useState<boolean>(false);
@@ -41,6 +40,7 @@ const Navbar = ({
   useEffect(() => {
     setActiveLink(router.pathname);
   }, [router.pathname]);
+
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -69,6 +69,19 @@ const Navbar = ({
   const closeNavbar = () => {
     setToggleNav(false);
   };
+
+  const menuItems: MenuProps["items"] = [
+    {
+      key: "profile",
+      label: translate("NAV_PROFILE"),
+      onClick: () => router.push("/profile"),
+    },
+    {
+      key: "logout",
+      label: translate("NAV_LOGOUT"),
+      onClick: logout,
+    },
+  ];
 
   return (
     <>
@@ -124,12 +137,16 @@ const Navbar = ({
                   {user && (
                     <div className="flex flex-1 justify-center">
                       <ul
-                        className={`${toggleNav ? "smallScreenUi block" : "navMenu xl:flex"}`}
+                        className={`${
+                          toggleNav ? "smallScreenUi block" : "navMenu xl:flex"
+                        }`}
                       >
                         <li className="cursor-not-allowed">
                           <a
                             className={
-                              activeLink === "/kafeel/home" ? "activeLink" : ""
+                              activeLink === "/kafeel/home"
+                                ? "activeLink"
+                                : ""
                             }
                             onClick={() => handleLinkClick("/kafeel/home")}
                           >
@@ -150,33 +167,22 @@ const Navbar = ({
                             {translate("CHILDRENS")}
                           </a>
                         </li>
-                        {/* <li className="cursor-not-allowed">
-                          <a
-                            className="pointer-events-none"
-                            aria-disabled={true}
-                          >
-                            {translate("PAYMENTS")}
-                          </a>
-                        </li>
-                        <li aria-disabled={true} className="cursor-not-allowed">
-                          <a className="pointer-events-none">
-                            {translate("ABOUT_SPONSORSHIP")}
-                          </a>
-                        </li> */}
                       </ul>
                     </div>
                   )}
                   <div className="ms-auto flex items-center gap-4">
                     <div className="actions m-auto mb-3 mt-3 flex items-center gap-4 text-center">
                       {user ? (
-                        <>
+                        <Dropdown menu={{ items: menuItems }} trigger={['click']}>
                           <Button
-                            onClick={logout}
-                            className="btn-login h-[40px] min-w-[100px] border border-solid !border-white bg-white !text-kafalaPrimary !outline-none duration-300 hover:!bg-transparent hover:!text-white"
+                          type="text"
+                            icon={<UserOutlined style={{ fontSize: '18px' }}/>}
+                            className="btn-login h-[40px] min-w-[100px] !border-none !text-white !outline-none duration-300 !bg-transparent !shadow-none !outline-none flex items-center gap-2"
                           >
-                            {translate("NAV_LOGOUT")}
+                            {translate("ACCOUNT")}
+                            <CaretDownOutlined />
                           </Button>
-                        </>
+                        </Dropdown>
                       ) : (
                         <>
                           <Button
@@ -194,7 +200,6 @@ const Navbar = ({
                         </>
                       )}
                     </div>
-                    {/* <Language isIcon={true} /> */}
                   </div>
                 </div>
               </div>
@@ -205,4 +210,5 @@ const Navbar = ({
     </>
   );
 };
+
 export default Navbar;

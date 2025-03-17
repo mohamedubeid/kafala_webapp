@@ -74,5 +74,14 @@
   "GUARANTOR": "كافل يتيم",
   "CHILD_GUARDIAN": "وصي الطفل",
   "SAVE_BTN": "حفظ",
-  "NO_ACCESS_WARNING": "ليس لديك إذن للوصول إلى هذه الصفحة"
+  "NO_ACCESS_WARNING": "ليس لديك إذن للوصول إلى هذه الصفحة",
+  "EDIT_PROFILE": "تعديل الملف الشخصي",
+  "NEW_PASSWORD": "كلمة المرور الجديدة",
+  "OLD_PASSWORD": "كلمة المرور القديمة",
+  "CHANGE_PASSWORD": "تغيير كلمة المرور",
+  "CONFIRM_NEW_PASSWORD": "تأكيد كلمة المرور الجديدة",
+  "OLD_PASSWORD_ERROR": "من فضلك قم بإدخال كلمة المرور القديمة",
+  "NEW_PASSWORD_ERROR": "من فضلك قم بإدخال كلمة المرور الجديدة",
+  "CONFIRM_NEW_PASSWORD_ERROR": "من فضلك قم بإدخال تأكيد كلمة المرور الجديدة"
+
 }

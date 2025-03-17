@@ -172,7 +172,8 @@ html[dir="ltr"] .kids-header .custom-next svg {
 }
 .login-form .ant-form-item-required,
 .main-form .ant-form-item-required,
-.sign-up-form .ant-form-item-required {
+.sign-up-form .ant-form-item-required,
+.profile-form .ant-form-item-required {
   @apply before:!hidden;
 }
 /* .ant-input-affix-wrapper {
