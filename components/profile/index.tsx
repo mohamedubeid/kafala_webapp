@@ -42,12 +42,12 @@ const Profile = () => {
       }
     }
 
-    // const onUpdatePassword = async (values: any) => {
-    //   updateUserPassword.mutate({
-    //     currentPassword: values["old-password"],
-    //     newPassword: values["new-password"],
-    //   });
-    // }
+    const onUpdatePassword = async (values: any) => {
+      updateUserPassword.mutate({
+        currentPassword: values["old-password"],
+        newPassword: values["new-password"],
+      });
+    }
 
   useEffect(() => {
     if (user) {
@@ -231,7 +231,7 @@ const Profile = () => {
                     form={passForm}
                     className="profile-form auth-form flex w-full flex-col gap-4"
                     id="change-password-form"
-                    // onFinish={onUpdatePassword}
+                    onFinish={onUpdatePassword}
                   >
                     <Form.Item
                       name="old-password"
