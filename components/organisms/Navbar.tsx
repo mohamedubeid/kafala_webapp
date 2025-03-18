@@ -141,6 +141,20 @@ const Navbar = ({
                           toggleNav ? "smallScreenUi block" : "navMenu xl:flex"
                         }`}
                       >
+                        <li>
+                          <a
+                            className={
+                              activeLink === "/children/my-children"
+                                ? "activeLink"
+                                : ""
+                            }
+                            onClick={() =>
+                              handleLinkClick("/guardians/list")
+                            }
+                          >
+                            {translate("YOUR_GUARDIANS")}
+                          </a>
+                        </li>
                         <li className="cursor-not-allowed">
                           <a
                             className={
