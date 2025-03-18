@@ -8,7 +8,8 @@ export default function GuardiansListPage() {
 }
 export async function getServerSideProps({ locale }: { locale: string }) {
   const locales = await serverSideTranslations(locale, [
-    "common",
+    // "common",
+    "children",
     "footer"
   ]);
   return {
