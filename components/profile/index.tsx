@@ -38,7 +38,7 @@ const Profile = () => {
       lastName: values.lastName,
       mobile: values.mobile,
       national_id: values.national_id,
-      attachment: attachUrl && attachUrl.length ? attachUrl[0]?.link || attachUrl[1]?.link || undefined : undefined,
+      attachment: attachUrl && attachUrl.length ? attachUrl[0]?.link || attachUrl[1]?.link || null : null,
       authorities: user?.authorities
     };
     setUpdatedUser(updatedUser);
@@ -62,6 +62,9 @@ const Profile = () => {
         mobile: user.mobile,
         national_id: user.national_id,
       });
+      if (user.attachment) {
+        setAttachmentUrl([{ link: user.attachment }]);
+      }
     }
   }, [user, formRef, translate]);
 

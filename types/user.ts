@@ -14,7 +14,7 @@ export type UserType = {
   resetDate?: Date;
   mobile?: string;
   national_id?: string;
-  attachment?: string;
+  attachment?: string | null;
 };
 
 export type LoginUser = {
