@@ -8,6 +8,7 @@ export default function UpdateGuardianPage() {
 }
 export async function getServerSideProps({ locale }: { locale: string }) {
   const locales = await serverSideTranslations(locale, [
+    "children",
     "common",
     "footer"
   ]);

@@ -41,6 +41,8 @@
   "sponsorshipFinished": "انتهاء الكفالة",
   "noChildrenFound": "لا يوجد اطفال",
   "renewSponsorship": "تجديد الكفالة",
+  "saveAndContinue": "الحفظ والاستمرار",
+  "saveAndFinish": "الحفظ والانهاء",
   "ORPHAN": {
     "OTHER": "يتيم الأب والأم",
     "FATHER_ORPHAN": "يتيم الأب",
@@ -78,5 +80,14 @@
     "ERROR": "حدث خطأ اثناء الكفالة",
     "COST_ERROE": "المبلغ لا يحب ان يقل عن 1",
     "LOGIN_ERROR": "يرجي تسجيل الدخول قبل التبرع"
+  },
+  "steps": {
+    "profile": "الملف الشخصي",
+    "health-status": "الحالة الصحية",
+    "sponsorship": "الكفالة",
+    "social-status": "الحالة الاجتماعية",
+    "education": "التعليم",
+    "harms": "الاضرار",
+    "steps-locked": "الخطوات مغلقة حتى تكمل الخطوة الأولى"
   }
 }

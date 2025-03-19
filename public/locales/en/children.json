@@ -41,6 +41,8 @@
   "noChildrenFound": "No Children found",
   "NO_PARTICIPATIONFOUND": "No Prticipaton Found",
   "PARTICIPATIONS": "Participations",
+  "saveAndContinue": "Save and continue",
+  "saveAndFinish": "Save and finish",
   "ORPHAN": {
     "OTHER": "Orphaned Father and Mother",
     "FATHER_ORPHAN": "Orphaned Father",
@@ -78,5 +80,14 @@
     "ERROR": "Error Appear During Sponsorship",
     "COST_ERROE": "Cost shouldn't be less than 1",
     "LOGIN_ERROR": "Please Login Before Donate"
+  },
+  "steps": {
+    "profile": "Profile",
+    "health-status": "Health Status",
+    "social-status": "Social Status",
+    "education": "Education",
+    "sponsorship": "Sponsorship",
+    "harms": "Harms",
+    "steps-locked": "Steps are locked until you complete the first step"
   }
 }
