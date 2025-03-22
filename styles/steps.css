@@ -31,3 +31,17 @@
 .app-steps .MuiStepLabel-label {
   text-align: center;
 }
+
+.stepContainer input,
+.stepContainer textarea {
+  border-radius: 8px;
+}
+.stepContainer textarea {
+  min-height: 100px;
+}
+
+.ant-upload-list-item *,
+.main-upload-input-btn *,
+.stepContainer label {
+  color: #737373;
+}

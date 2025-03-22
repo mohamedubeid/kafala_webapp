@@ -10,6 +10,7 @@ export async function getServerSideProps({ locale }: { locale: string }) {
   const locales = await serverSideTranslations(locale, [
     "children",
     "common",
+    "messages",
     "footer"
   ]);
   return {

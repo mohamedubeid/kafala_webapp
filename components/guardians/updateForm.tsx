@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { Steps } from "./guardians-steps/steps";
 import Actions from "./guardians-steps/actions";
+import StepOne from "./guardians-steps/stepOne";
 
 
 const UpdateForm = () => {
@@ -74,6 +75,22 @@ const UpdateForm = () => {
     }
   };
 
+  const handleNext = () => {
+    if (stepNumber < steps.length - 1) {
+      const nextStep = stepNumber + 1;
+      setStepNumder(nextStep);
+
+      setCompletedSteps(prevCompletedSteps => {
+        if (!prevCompletedSteps.includes(nextStep)) {
+          return [...prevCompletedSteps, nextStep];
+        }
+        return prevCompletedSteps;
+      });
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
 
   return (
     <section className="main-sections">
@@ -96,6 +113,8 @@ const UpdateForm = () => {
           />
 
           <div>
+
+            {stepNumber === 0 && <StepOne handleNext={handleNext} />}
 
             <Actions
               lastStep={steps.length - 1}
