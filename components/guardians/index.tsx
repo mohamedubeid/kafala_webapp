@@ -6,11 +6,13 @@ import "swiper/css";
 import "swiper/css/pagination";
 import useGetSponsoredChildren from "@/hooks/children/getSponsoredChilds";
 import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
 
 const GuardiansList = () => {
   const { t: translate } = useTranslation();
   const { data: sponsoredChilds } = useGetSponsoredChildren();
   const today = new Date();
+  const router = useRouter();
 
 
 
@@ -21,6 +23,14 @@ const GuardiansList = () => {
           <div className="kids-title section-title">
             {translate("children:guardianshipChildren")}
           </div>
+          <Button
+              className="mt-7 h-[45px] w-[200px] rounded-full border border-solid border-kafalaPrimary bg-kafalaPrimary text-lg !text-white duration-300 hover:!border-kafalaPrimary-400 hover:!bg-kafalaPrimary-400"
+              onClick={() => {
+                router.push("/guardians/update");
+              }}
+            >
+              {translate("children:ADD_CHILD")}
+          </Button>
         </div>
 
 
