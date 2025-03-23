@@ -69,10 +69,10 @@ const Profile = () => {
   }, [user, formRef, translate]);
 
   useEffect(() => {
-    if (updateResponse && updateResponse.data.uid) {
+    if (updateResponse) {
       toast(translate("UPDATE_SUCCESSFUL"), {
         type: "success",
-        position: "top-center",
+        position: "top-left",
       });
     }
   }, [updateResponse]);
