@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, Select, Checkbox } from "antd";
 import { useTranslation } from "next-i18next";
 import { IChild } from "@/types/child/profile";
+import { HealthStatus, MentalIllnessTypes, SychologicalHealthTypes } from "@/types/enm";
+import { IChildHealthStatus } from "@/types/child/healthStatus";
+import UploadImage from "uploads/UploadImage";
+
 
 type ChildProps = {
   child?: any;
@@ -17,15 +21,33 @@ const StepTwo = ({ child, handleNext }: ChildProps) => {
     const router = useRouter();
     const { id } = router.query;
     const isNew = id === undefined;
+    const healthStatusValues = Object.keys(HealthStatus);
+    const mentalIllnessTypesValues = Object.keys(MentalIllnessTypes);
+    const sychologicalHealthTypesValues = Object.keys(SychologicalHealthTypes);
+
+    const [disabilityUrl, setDisabilityUrl] = useState<{ id?: number; link?: string }[]>([]);
+    const [mentalIllnessUrl, setMentalIllnessUrl] = useState<{ id?: number; link?: string }[]>([]);
+    const [sychologicalHealthUrl, setSychologicalHealthUrl] = useState<{ id?: number; link?: string }[]>([]);
 
     const [childNotes, setChildNotes] = useState([{ id: null, notes: { id: null, note: '' }}]);
 
-    const saveEntity = (values: IChild) => {
-      if (values.age !== undefined && typeof values.age !== 'number') {
-        values.age = Number(values.age);
-      }
-      const entity: IChild = {
+    const saveEntity = (values: IChildHealthStatus) => {
+      const entity: IChildHealthStatus = {
         ...values,
+        healthStatus: values.healthStatus,
+        chronicDisease: values.chronicDisease,
+        sychologicalHealth: values.sychologicalHealth,
+        hasMentalIllness: values.hasMentalIllness,
+        mentalIllnessType: values.mentalIllnessType,
+        sychologicalHealthType: values.sychologicalHealthType,
+        disabilityImage: disabilityUrl && disabilityUrl.length ? disabilityUrl[0]?.link || disabilityUrl[1]?.link || null : null,
+        mentalIllnessImage:
+          mentalIllnessUrl && mentalIllnessUrl.length ? mentalIllnessUrl[0]?.link || mentalIllnessUrl[1]?.link || null : null,
+        sychologicalHealthImage:
+          sychologicalHealthUrl && sychologicalHealthUrl.length
+            ? sychologicalHealthUrl[0]?.link || sychologicalHealthUrl[1]?.link || null
+            : null,
+            healthReport: values.healthReport,
         childNotes: childNotes.map(childNote => ({
           id: childNote.id,
           notes: {
@@ -43,7 +65,30 @@ const StepTwo = ({ child, handleNext }: ChildProps) => {
       setChildNotes([...childNotes, { id: null, notes: { id: null, note: '' }}]);
     };
 
+    const removeDisabilityUrl = (fileIndex: number | void) => {
+      const fileList = disabilityUrl;
+      if (fileIndex) {
+        fileList.splice(fileIndex - 1, 1);
+      }
+      setDisabilityUrl([...fileList]);
+    };
   
+    const removeMentalIllnessUrl = (fileIndex: number | void) => {
+      const fileList = mentalIllnessUrl;
+      if (fileIndex) {
+        fileList.splice(fileIndex - 1, 1);
+      }
+      setMentalIllnessUrl([...fileList]);
+    };
+  
+    const removeSychologicalHealthUrl = (fileIndex: number | void) => {
+      const fileList = sychologicalHealthUrl;
+      if (fileIndex) {
+        fileList.splice(fileIndex - 1, 1);
+      }
+      setSychologicalHealthUrl([...fileList]);
+    };
+
     // Handle note change
     const handleChildNoteChange = (index: number, event: any) => {
       const newNotes = [...childNotes];
@@ -64,6 +109,203 @@ const StepTwo = ({ child, handleNext }: ChildProps) => {
           form={formRef}
           id="healthStatusForm"
         >
+
+        <Form.Item
+          name="healthStatus"
+          label={translate("messages:healthStatus")}
+          initialValue={healthStatusValues[0]}
+        >
+          <Select
+            id="health-status"
+            placeholder={translate("messages:healthStatus")}
+            className="form-input h-[40px] w-full !overflow-hidden !border"
+            rootClassName="!outline-none !shadow-none"
+            options={healthStatusValues.map((status) => ({
+              value: status,
+              label: translate(`messages:${status}`),
+            }))}
+          />
+        </Form.Item>
+
+        <Form.Item
+          name="chronicDisease"
+          valuePropName="checked"
+          getValueFromEvent={(e) => e.target.checked ? 1 : 0}
+          initialValue={0}
+        >
+          <Checkbox id="chronic-disease">
+            {translate("messages:chronicDisease")}
+          </Checkbox>
+        </Form.Item>
+
+        <Form.Item
+          name="hasDisability"
+          valuePropName="checked"
+          getValueFromEvent={(e) => e.target.checked ? 1 : 0}
+          initialValue={0}
+        >
+          <Checkbox id="has-disability">
+            {translate("messages:hasDisability")}
+          </Checkbox>
+        </Form.Item>
+
+        <UploadImage
+          id="disabilityImage"
+          label={translate("messages:disabilityImage")}
+          viewType="defaultView"
+          key="disabilityImage"
+          defaultImages={[
+            ...(disabilityUrl && disabilityUrl[0]?.link
+              ? [
+                  {
+                    uid: disabilityUrl[0]?.id?.toString() || "",
+                    url: disabilityUrl[0]?.link?.toString(),
+                    name: '',
+                  },
+                ]
+              : []),
+          ]}
+          maxLength={1}
+          removeImage={removeDisabilityUrl}
+          setImageUrl={(url: string | void) => {
+            if (url) setDisabilityUrl([...disabilityUrl, { link: url }]);
+          }}
+          title=""
+          acceptTypes="image/jpeg,
+          image/jpg,
+          image/png,
+          image/webp,
+          image/bmp,
+          image/tiff,.pdf,.xlsx,.xls,.docx,.doc"
+        />
+
+        <Form.Item
+          name="hasMentalIllness"
+          valuePropName="checked"
+          getValueFromEvent={(e) => e.target.checked ? 1 : 0}
+          initialValue={0}
+        >
+          <Checkbox id="hasMental-illness">
+            {translate("messages:hasMentalIllness")}
+          </Checkbox>
+        </Form.Item>
+
+        <Form.Item
+          name="mentalIllnessType"
+          label={translate("messages:mentalIllnessType")}
+          initialValue={mentalIllnessTypesValues[0]}
+        >
+          <Select
+            id="mental-illness-type"
+            placeholder={translate("messages:mentalIllnessType")}
+            className="form-input h-[40px] w-full !overflow-hidden !border"
+            rootClassName="!outline-none !shadow-none"
+            options={mentalIllnessTypesValues.map((mentalIllness) => ({
+              value: mentalIllness,
+              label: translate(`messages:${mentalIllness}`),
+            }))}
+          />
+        </Form.Item>
+
+        <UploadImage
+          id="mentalIllnessImage"
+          label={translate("messages:mentalIllnessImage")}
+          viewType="defaultView"
+          key="mentalIllnessImage"
+          defaultImages={[
+            ...(mentalIllnessUrl && mentalIllnessUrl[0]?.link
+              ? [
+                  {
+                    uid: mentalIllnessUrl[0]?.id?.toString() || "",
+                    url: mentalIllnessUrl[0]?.link?.toString(),
+                    name: '',
+                  },
+                ]
+              : []),
+          ]}
+          maxLength={1}
+          removeImage={removeMentalIllnessUrl}
+          setImageUrl={(url: string | void) => {
+            if (url) setMentalIllnessUrl([...mentalIllnessUrl, { link: url }]);
+          }}
+          title=""
+          acceptTypes="image/jpeg,
+          image/jpg,
+          image/png,
+          image/webp,
+          image/bmp,
+          image/tiff,.pdf,.xlsx,.xls,.docx,.doc"
+        />
+
+        <Form.Item
+          name="sychologicalHealth"
+          valuePropName="checked"
+          getValueFromEvent={(e) => e.target.checked ? 1 : 0}
+          initialValue={0}
+        >
+          <Checkbox id="sychological-health">
+            {translate("messages:sychologicalHealth")}
+          </Checkbox>
+        </Form.Item>
+
+        <Form.Item
+          name="sychologicalHealthType"
+          label={translate("messages:sychologicalHealthType")}
+          initialValue={sychologicalHealthTypesValues[0]}
+        >
+          <Select
+            id="sychological-health-type"
+            placeholder={translate("messages:sychologicalHealthType")}
+            className="form-input h-[40px] w-full !overflow-hidden !border"
+            rootClassName="!outline-none !shadow-none"
+            options={sychologicalHealthTypesValues.map((sychologicalHealth) => ({
+              value: sychologicalHealth,
+              label: translate(`messages:${sychologicalHealth}`),
+            }))}
+          />
+        </Form.Item>
+
+        <UploadImage
+          id="sychologicalHealthImage"
+          label={translate("messages:sychologicalHealthImage")}
+          viewType="defaultView"
+          key="sychologicalHealthImage"
+          defaultImages={[
+            ...(sychologicalHealthUrl && sychologicalHealthUrl[0]?.link
+              ? [
+                  {
+                    uid: sychologicalHealthUrl[0]?.id?.toString() || "",
+                    url: sychologicalHealthUrl[0]?.link?.toString(),
+                    name: '',
+                  },
+                ]
+              : []),
+          ]}
+          maxLength={1}
+          removeImage={removeSychologicalHealthUrl}
+          setImageUrl={(url: string | void) => {
+            if (url) setSychologicalHealthUrl([...sychologicalHealthUrl, { link: url }]);
+          }}
+          title=""
+          acceptTypes="image/jpeg,
+          image/jpg,
+          image/png,
+          image/webp,
+          image/bmp,
+          image/tiff,.pdf,.xlsx,.xls,.docx,.doc"
+        />
+
+        <Form.Item
+          name="healthReport"
+          label={translate("messages:healthReport")}
+        >
+          <Input
+            id="healthReport"
+            className="form-input h-[40px] w-full"
+            placeholder={translate("messages:healthReport")}
+            type="text"
+          />
+        </Form.Item>
 
         <Form.Item label={translate("messages:childNotes")}>
           {childNotes.map((note, index) => (
