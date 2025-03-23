@@ -101,8 +101,8 @@ const UpdateForm = () => {
             {/* {translate("common:YOUR_GUARDIANS")} */}
           </div>
         </div>
-        <div>
-          <Steps
+        <div className="w-full lg:w-2/3 md:w-2/3 sm:w-full mx-auto">
+        <Steps
             steps={steps.map(step => ({
               ...step,
               onClick: step.onClick ? step.onClick : () => {},
