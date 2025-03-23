@@ -1,21 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Form, Input, Select, Spin, Button } from "antd";
 import { useTranslation } from "next-i18next";
 import { MailFilled } from "@ant-design/icons";
 import UploadImage from "uploads/UploadImage";
-
+import { Gender } from "@/types/enm";
+import useAddUpdateChild from "@/hooks/child/addUpdateChild";
+import { IChild } from "@/types/child/profile";
+import { toast } from "react-toastify";
 
 type ChildProps = {
   child?: any;
   handleNext: () => void;
 };
-
-export enum Gender {
-  MALE = 'MALE',
-
-  FEMALE = 'FEMALE',
-}
 
 
 const StepOne = ({ child, handleNext }: ChildProps) => {
@@ -27,6 +24,8 @@ const StepOne = ({ child, handleNext }: ChildProps) => {
     const isNew = id === undefined;
     const genderValues = Object.keys(Gender);
 
+    const { addUpdateResponse, addUpdateError, addUpdateLoading, setChildData } = useAddUpdateChild();
+
     const [nationalImage, setNationalImage] = useState<{ id?: number; link?: string }[]>([]);
     const [InitialNationalImageRemoved, setInitialNationlImageRemoved] = useState(false);
     const [birthDateImage, setBirthDateImage] = useState<{ id?: number; link?: string }[]>([]);
@@ -36,11 +35,15 @@ const StepOne = ({ child, handleNext }: ChildProps) => {
     const [childVideo, setChildVideo] = useState<{ id?: number; link?: string }[]>([]);
     const [InitialChildVideoRemoved, setInitialChildVideoRemoved] = useState(false);
     const [childNotes, setChildNotes] = useState([{ id: null, notes: { id: null, note: '' }}]);
-    const saveEntity = (values: any) => {
-      const entity = {
+    const saveEntity = (values: IChild) => {
+      if (values.age !== undefined && typeof values.age !== 'number') {
+        values.age = Number(values.age);
+      }
+      const entity: IChild = {
+        ...values,
         email: values.email,
-        firstName: values.name,
-        nationalId: values.national_id,
+        firstName: values.firstName,
+        nationalId: values.nationalId,
         nationalImage: nationalImage && nationalImage?.length ? nationalImage[0]?.link || nationalImage[1]?.link || null : null,
         birthCertificate: birthDateImage && birthDateImage?.length ? birthDateImage[0]?.link || birthDateImage[1]?.link || null : null,
         fatherName: values.fatherName,
@@ -49,7 +52,7 @@ const StepOne = ({ child, handleNext }: ChildProps) => {
         imageUrl: childImage && childImage?.length ? childImage[0]?.link || childImage[1]?.link || null : null,
         gender: values.gender,
         age: values.age,
-        video: childVideo && childVideo?.length ? childVideo[0]?.link || childVideo[1]?.link || null : null,
+        vedio: childVideo && childVideo?.length ? childVideo[0]?.link || childVideo[1]?.link || null : null,
         address: values.address,
         description: values.description,
         childNotes: childNotes.map(childNote => ({
@@ -59,9 +62,8 @@ const StepOne = ({ child, handleNext }: ChildProps) => {
             note: childNote.notes.note,
           },
         })),
-
-      }
-      console.log("entity: ", entity)
+      };
+      setChildData(entity);
     };
 
     const removeNationalImageUrl = (imageIndex: number | void) => {
@@ -115,6 +117,43 @@ const StepOne = ({ child, handleNext }: ChildProps) => {
       setChildNotes(newNotes);
     };
 
+      useEffect(() => {
+        if (addUpdateResponse && addUpdateResponse.data.id) {
+          toast(translate("messages:CILD_CREATED"), {
+            type: "success",
+            position: "top-left",
+          });
+          formRef.resetFields();
+          handleNext();
+        }
+      }, [addUpdateResponse]);
+
+        useEffect(() => {
+          if (addUpdateError) {
+            if (addUpdateError.statusCode === 400) {
+              switch (addUpdateError.message) {
+                case "error.NationalIdExists":
+                  toast(translate("messages:nationalIdExists"), {
+                    type: "error",
+                    position: "top-left",
+                  });
+                  break;
+                default:
+                  toast(translate("BAD_REQUEST"), {
+                    type: "error",
+                    position: "top-left",
+                  });
+                  break;
+              }
+            } else {
+              toast(translate("BAD_REQUEST"), {
+                type: "error",
+                position: "top-left",
+              });
+            }
+          }
+        }, [addUpdateError]);
+
     return (
       <div className="stepContainer">
 
@@ -128,7 +167,7 @@ const StepOne = ({ child, handleNext }: ChildProps) => {
 
         <Form.Item
           name="email"
-          label={translate("messages:SIGNUP_EMAIL")}
+          label={translate("messages:SIGNUP_EMAIL") + '*'}
           rules={[
             {
               required: true,
@@ -147,8 +186,8 @@ const StepOne = ({ child, handleNext }: ChildProps) => {
         </Form.Item>
 
         <Form.Item
-          name="name"
-          label={translate("messages:SIGNUP_NAME")}
+          name="firstName"
+          label={translate("messages:SIGNUP_NAME") + '*'}
           rules={[
             {
               required: true,
@@ -164,7 +203,16 @@ const StepOne = ({ child, handleNext }: ChildProps) => {
           />
         </Form.Item>
 
-        <Form.Item name="national_id" label={translate("messages:SIGNUP_NATIONAL_ID")}>
+        <Form.Item
+          name="nationalId"
+          label={translate("messages:SIGNUP_NATIONAL_ID") + '*'}
+          rules={[
+            {
+              required: true,
+              message: translate("messages:NATIONAL_ID_ERROR"),
+            },
+          ]}
+        >
           <Input
             id="child-nationalId"
             className="form-input h-[40px] w-full"
@@ -235,7 +283,7 @@ const StepOne = ({ child, handleNext }: ChildProps) => {
 
         <Form.Item
           name="fatherName"
-          label={translate("messages:fatherName")}
+          label={translate("messages:fatherName") + '*'}
           rules={[
             {
               required: true,
@@ -253,7 +301,7 @@ const StepOne = ({ child, handleNext }: ChildProps) => {
 
         <Form.Item
           name="motherName"
-          label={translate("messages:motherName")}
+          label={translate("messages:motherName") + '*'}
           rules={[
             {
               required: true,
@@ -271,7 +319,7 @@ const StepOne = ({ child, handleNext }: ChildProps) => {
 
         <Form.Item
           name="familyName"
-          label={translate("messages:familyName")}
+          label={translate("messages:familyName") + '*'}
           rules={[
             {
               required: true,
@@ -319,7 +367,7 @@ const StepOne = ({ child, handleNext }: ChildProps) => {
 
         <Form.Item
           name="gender"
-          label={translate("messages:gender")}
+          label={translate("messages:gender") + '*'}
           rules={[
             {
               required: true,
@@ -342,12 +390,19 @@ const StepOne = ({ child, handleNext }: ChildProps) => {
 
         <Form.Item
           name="age"
-          label={translate("messages:age")}
+          label={translate("messages:age") + '*'}
           rules={[
             {
               required: true,
               message: translate("messages:AGE_ERROR"),
             },
+            {
+              type: "number",
+              transform(value) {
+                return Number(value)
+              },
+              message: translate("messages:AGE_TYPE_ERROR")
+            }
           ]}
         >
           <Input
@@ -390,7 +445,7 @@ const StepOne = ({ child, handleNext }: ChildProps) => {
         
         <Form.Item
           name="address"
-          label={translate("messages:address")}
+          label={translate("messages:address") + '*'}
           rules={[
             {
               required: true,
@@ -408,7 +463,7 @@ const StepOne = ({ child, handleNext }: ChildProps) => {
 
         <Form.Item
           name="description"
-          label={translate("messages:description")}
+          label={translate("messages:description") + '*'}
           rules={[
             {
               required: true,

@@ -44,6 +44,7 @@
   "GENDER_ERROR": "Please Enter Gender",
   "AGE_ERROR": "Please Enter Age",
   "DESCRIPTION_ERROR": "Please Enter Description",
+  "NATIONAL_ID_ERROR": "Please Enter National ID",
   "ADDRESS_ERROR": "Please Enter Address",
   "PASSWORD_ERROR": "Please enter your password",
   "CONFIRM_PASSWORD_ERROR": "Please enter confirm password",
@@ -102,5 +103,7 @@
   "NEW_PASSWORD": "New Password",
   "CONFIRM_NEW_PASSWORD": "Confirm New Password",
   "CHANGE_PASSWORD": "Change Password",
-  "OLD_PASSWORD": "Old Password"
+  "OLD_PASSWORD": "Old Password",
+  "CILD_CREATED": "A new Child is created successfully",
+  "AGE_TYPE_ERROR": "Age must be a number"
 }

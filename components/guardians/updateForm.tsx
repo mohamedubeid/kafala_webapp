@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { Steps } from "./guardians-steps/steps";
 import Actions from "./guardians-steps/actions";
 import StepOne from "./guardians-steps/stepOne";
+import StepTwo from "./guardians-steps/stepTwo";
 
 
 const UpdateForm = () => {
@@ -97,7 +98,7 @@ const UpdateForm = () => {
       <div className="container">
         <div className="kids-header flex flex-wrap items-start justify-between gap-3 md:text-lg">
           <div className="kids-title section-title">
-            {translate("common:YOUR_GUARDIANS")} Form
+            {/* {translate("common:YOUR_GUARDIANS")} */}
           </div>
         </div>
         <div>
@@ -115,7 +116,7 @@ const UpdateForm = () => {
           <div>
 
             {stepNumber === 0 && <StepOne handleNext={handleNext} />}
-
+            {stepNumber === 1 && <StepTwo handleNext={handleNext} />}
             <Actions
               lastStep={steps.length - 1}
               stepId={steps[stepNumber].formName}
