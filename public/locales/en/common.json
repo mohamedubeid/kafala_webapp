@@ -5,7 +5,7 @@
   "NAV_SIGNUP": "Sign Up",
   "NAV_LOGOUT": "Logout",
   "CHILDRENS": "Childrens",
-  "YOUR_GUARDIANS": "Your Guardians",
+  "YOUR_GUARDIANS": "Your Childrens",
   "PAYMENTS": "Payments",
   "ABOUT_SPONSORSHIP": "About Sponsorship",
   "DONATE_NOW": "Donate Now",
@@ -34,5 +34,5 @@
   "DATE_TO": "To",
   "BY_AGE": "Age",
   "ACCOUNT": "Account",
-  "NAV_PROFILE": "Profile",
+  "NAV_PROFILE": "Profile"
 }
