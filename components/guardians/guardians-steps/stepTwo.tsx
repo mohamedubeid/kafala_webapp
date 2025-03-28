@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Form, Input, Button, Select, Checkbox } from "antd";
 import { useTranslation } from "next-i18next";
-import { IChild } from "@/types/child/profile";
 import { HealthStatus, MentalIllnessTypes, SychologicalHealthTypes } from "@/types/enm";
 import { IChildHealthStatus } from "@/types/child/healthStatus";
 import UploadImage from "uploads/UploadImage";
+import useAddUpdateChildHealthStatus from "@/hooks/guardians/addUpdateChildHealthStatus";
+import { toast } from "react-toastify";
+import { IChild } from "@/types/child/profile";
 
 
 type ChildProps = {
-  child?: any;
+  child?: IChild;
   handleNext: () => void;
 };
 
@@ -30,6 +32,7 @@ const StepTwo = ({ child, handleNext }: ChildProps) => {
     const [sychologicalHealthUrl, setSychologicalHealthUrl] = useState<{ id?: number; link?: string }[]>([]);
 
     const [childNotes, setChildNotes] = useState([{ id: null, notes: { id: null, note: '' }}]);
+    const { addUpdateResponse, addUpdateError, addUpdateLoading, setChildHealthStatusData } = useAddUpdateChildHealthStatus();
 
     const saveEntity = (values: IChildHealthStatus) => {
       const entity: IChildHealthStatus = {
@@ -48,15 +51,16 @@ const StepTwo = ({ child, handleNext }: ChildProps) => {
             ? sychologicalHealthUrl[0]?.link || sychologicalHealthUrl[1]?.link || null
             : null,
             healthReport: values.healthReport,
-        childNotes: childNotes.map(childNote => ({
+          childHealthNotes: childNotes.map(childNote => ({
           id: childNote.id,
           notes: {
             id: childNote.notes.id,
             note: childNote.notes.note,
           },
         })),
+        child: child,
       };
-      console.log("entityyyyyyyyyyyyyyyyy: ", entity)
+      setChildHealthStatusData(entity);
     };
 
 
@@ -98,6 +102,26 @@ const StepTwo = ({ child, handleNext }: ChildProps) => {
       newNotes[index].notes.note = event.target.value;
       setChildNotes(newNotes);
     };
+
+    useEffect(() => {
+      if (addUpdateResponse && addUpdateResponse.data.id) {
+        toast(translate("messages:CHILD_SAVED"), {
+          type: "success",
+          position: "top-left",
+        });
+        formRef.resetFields();
+        handleNext();
+      }
+    }, [addUpdateResponse]);
+
+    useEffect(() => {
+      if (addUpdateError) {
+        toast(translate("BAD_REQUEST"), {
+          type: "error",
+          position: "top-left",
+        });
+      }
+    }, [addUpdateError]);
 
     return (
       <div className="stepContainer">

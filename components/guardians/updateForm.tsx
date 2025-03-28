@@ -20,6 +20,7 @@ const UpdateForm = () => {
   const { id } = router.query;
 
   const isNew = id === undefined;
+  const [childEntity, setChildEntity] = useState({});
 
   const steps = [
     {
@@ -115,8 +116,8 @@ const UpdateForm = () => {
 
           <div>
 
-            {stepNumber === 0 && <StepOne handleNext={handleNext} />}
-            {stepNumber === 1 && <StepTwo handleNext={handleNext} />}
+            {stepNumber === 0 && <StepOne handleNext={handleNext} updateChild={setChildEntity}/>}
+            {stepNumber === 1 && <StepTwo handleNext={handleNext} child={childEntity}/>}
             <Actions
               lastStep={steps.length - 1}
               stepId={steps[stepNumber].formName}
@@ -124,8 +125,6 @@ const UpdateForm = () => {
             />
           </div>
         </div>
-
-
       </div>
     </section>
   );

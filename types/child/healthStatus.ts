@@ -16,5 +16,5 @@ export interface IChildHealthStatus {
   sychologicalHealthImage?: string | null;
   healthReport?: string | null;
   child?: IChild | null;
-  childNotes?: { id: number | null; notes: { id: number | null; note: string } }[];
+  childHealthNotes?: { id: number | null; notes: { id: number | null; note: string } }[];
 }

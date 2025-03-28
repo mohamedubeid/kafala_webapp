@@ -1,21 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, SetStateAction, Dispatch } from "react";
 import { useRouter } from "next/router";
 import { Form, Input, Select, Spin, Button } from "antd";
 import { useTranslation } from "next-i18next";
 import { MailFilled } from "@ant-design/icons";
 import UploadImage from "uploads/UploadImage";
 import { Gender } from "@/types/enm";
-import useAddUpdateChild from "@/hooks/child/addUpdateChild";
+import useAddUpdateChild from "@/hooks/guardians/addUpdateChild";
 import { IChild } from "@/types/child/profile";
 import { toast } from "react-toastify";
 
 type ChildProps = {
-  child?: any;
+  child?: IChild;
   handleNext: () => void;
+  updateChild: Dispatch<SetStateAction<IChild>>;
 };
 
 
-const StepOne = ({ child, handleNext }: ChildProps) => {
+const StepOne = ({ child, handleNext, updateChild }: ChildProps) => {
     const [formRef] = Form.useForm();
     const { t: translate } = useTranslation();
     const { TextArea } = Input;
@@ -124,6 +125,7 @@ const StepOne = ({ child, handleNext }: ChildProps) => {
             position: "top-left",
           });
           formRef.resetFields();
+          updateChild(addUpdateResponse.data);
           handleNext();
         }
       }, [addUpdateResponse]);

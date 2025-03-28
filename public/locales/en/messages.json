@@ -105,6 +105,7 @@
   "CHANGE_PASSWORD": "Change Password",
   "OLD_PASSWORD": "Old Password",
   "CILD_CREATED": "A new Child is created successfully",
+  "CHILD_SAVED": "Child Data is saved successfully",
   "AGE_TYPE_ERROR": "Age must be a number",
   "GOOD": "GOOD",
   "WEAK": "WEAK",
