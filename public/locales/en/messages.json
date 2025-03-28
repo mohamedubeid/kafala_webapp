@@ -142,5 +142,9 @@
   "guardianNationalID": "Guardian National ID",
   "guardianRelationship": "Guardian Relationship",
   "guardianDocument": "Guardian Document",
-  "numOfSibiling": "Num Of Sibiling"
+  "numOfSibiling": "Num Of Sibiling",
+  "lastLevelOfEducation": "Last Level Of Education",
+  "hoppy": "Hoppy",
+  "lastLevelOfEducationImage": "Last Level Of Education Image",
+  "childEducationNotes": "Child Education Notes"
 }

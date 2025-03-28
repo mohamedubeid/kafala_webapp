@@ -148,6 +148,10 @@
   "guardianNationalID": "رقم الهوية",
   "guardianRelationship": "صلة الوصي",
   "guardianDocument": "وثيقة الوصي (ان وجدت)",
-  "numOfSibiling": "عدد الأخوة والأخوات"
+  "numOfSibiling": "عدد الأخوة والأخوات",
+  "lastLevelOfEducation": "اخر مستوى تعليمي وصل له الطفل؟",
+  "hoppy": "موهبة خاصة (إن وجدت)",
+  "lastLevelOfEducationImage": "برجاء رفع اخر شهادة تعليمية (إن وجدت)",
+  "childEducationNotes": "ملاحظات التعليم للطفل"
 
 }
