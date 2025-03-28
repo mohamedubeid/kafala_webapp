@@ -132,5 +132,15 @@
   "UNSTABLE": "UNSTABLE",
   "REQUIRES_COUNSELING": "REQUIRES_COUNSELING",
   "REQUIRES_THERAPY": "REQUIRES_THERAPY",
-  "CRITICAL": "CRITICAL"
+  "CRITICAL": "CRITICAL",
+  "OrphanClassification" : "Orphan Classification",
+  "FATHER_ORPHAN": "FATHER ORPHAN",
+  "MOTHER_ORPHAN": "MOTHER ORPHAN",
+  "fatherDateOfDeath": "Father Date Of Death",
+  "dateOfBeathImage": "Date Of Beath Image",
+  "guardianName": "Guardian Name",
+  "guardianNationalID": "Guardian National ID",
+  "guardianRelationship": "Guardian Relationship",
+  "guardianDocument": "Guardian Document",
+  "numOfSibiling": "Num Of Sibiling"
 }

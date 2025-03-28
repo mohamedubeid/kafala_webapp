@@ -138,6 +138,16 @@
   "REQUIRES_COUNSELING": "تتطلب استشارة",
   "REQUIRES_THERAPY": "تتطلب علاجًا",
   "CRITICAL": "حرجة",
-  "sychologicalHealthImage": "صورة الصحة النفسية"
+  "sychologicalHealthImage": "صورة الصحة النفسية",
+  "OrphanClassification": "تصنيف اليتيم",
+  "FATHER_ORPHAN": "يتيم الأب",
+  "MOTHER_ORPHAN": "يتيم الأم",
+  "fatherDateOfDeath": "تاريخ الوفاه",
+  "dateOfBeathImage": "برجاء رفع شهادة الوفاه (إن وجدت)",
+  "guardianName": "اسم الوصي",
+  "guardianNationalID": "رقم الهوية",
+  "guardianRelationship": "صلة الوصي",
+  "guardianDocument": "وثيقة الوصي (ان وجدت)",
+  "numOfSibiling": "عدد الأخوة والأخوات"
 
 }

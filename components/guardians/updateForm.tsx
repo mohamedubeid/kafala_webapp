@@ -11,6 +11,7 @@ import { Steps } from "./guardians-steps/steps";
 import Actions from "./guardians-steps/actions";
 import StepOne from "./guardians-steps/stepOne";
 import StepTwo from "./guardians-steps/stepTwo";
+import StepThree from "./guardians-steps/stepThree";
 
 
 const UpdateForm = () => {
@@ -62,7 +63,7 @@ const UpdateForm = () => {
   ];
 
 
-  const [stepNumber, setStepNumder] = useState<number>(0);
+  const [stepNumber, setStepNumder] = useState<number>(2);
   const [completedSteps, setCompletedSteps] = useState<number[]>(isNew ? [0] : steps.map((_, index) => index));
 
 
@@ -118,6 +119,7 @@ const UpdateForm = () => {
 
             {stepNumber === 0 && <StepOne handleNext={handleNext} updateChild={setChildEntity}/>}
             {stepNumber === 1 && <StepTwo handleNext={handleNext} child={childEntity}/>}
+            {stepNumber === 2 && <StepThree handleNext={handleNext} child={childEntity}/>}
             <Actions
               lastStep={steps.length - 1}
               stepId={steps[stepNumber].formName}
