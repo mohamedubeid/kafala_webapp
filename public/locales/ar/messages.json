@@ -152,6 +152,25 @@
   "lastLevelOfEducation": "اخر مستوى تعليمي وصل له الطفل؟",
   "hoppy": "موهبة خاصة (إن وجدت)",
   "lastLevelOfEducationImage": "برجاء رفع اخر شهادة تعليمية (إن وجدت)",
-  "childEducationNotes": "ملاحظات التعليم للطفل"
-
+  "childEducationNotes": "ملاحظات التعليم للطفل",
+  "name": "اسم الجهه الراعية ",
+  "sponserConnection": "صلة الجهه الراعية",
+  "sponserConnection_error": "يرجى إدخال صلة الكفالة",
+  "sponsershipDuration": "مدة الكفالة",
+  "sponsershipDuration_error": "يرجى إدخال مدة الكفالة",
+  "sponsershipType": "نوع الكفالة",
+  "sponsershipType_error": "يرجى إدخال نوع الكفالة",
+  "minimumCost": "الحد الادني المطلوب للكفالة (شهريا)",
+  "MINIMUM_COST_TYPE_ERROR": "يجب أن تكون التكلفة الدنيا رقمًا",
+  "MINIMUM_COST_ERROR": "يرجى إدخال التكلفة الدنيا",
+  "MONTHLY":"شهري",
+  "QUARTERLY":"ربع ثانوي",
+  "SEMIANNUAL":"نصف سنوي",
+  "ANNUAL":"سنوي",
+  "RELATIVE": "قريب",
+  "ORGANIZATION": "منظمة",
+  "EDUCATIONAL": "تعليمي",
+  "HEALTH": "صحي",
+  "FINANCIAL": "مالي",
+  "SOCIAL": "اجتماعي"
 }

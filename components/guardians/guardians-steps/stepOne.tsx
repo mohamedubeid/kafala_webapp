@@ -456,7 +456,7 @@ const StepOne = ({ child, handleNext, updateChild }: ChildProps) => {
           ]}
         >
           <Input
-            id="child-age"
+            id="child-address"
             className="form-input h-[40px] w-full"
             placeholder={translate("messages:address")}
             type="text"

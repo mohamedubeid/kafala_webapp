@@ -1,8 +1,14 @@
+// export enum SponserConnection {
+//   DIRECT = "DIRECT",
+//   INDIRECT = "INDIRECT",
+//   OTHER = "OTHER",
+// }
 export enum SponserConnection {
-  DIRECT = "DIRECT",
-  INDIRECT = "INDIRECT",
+  RELATIVE = "RELATIVE",
+  ORGANIZATION = "ORGANIZATION",
   OTHER = "OTHER",
 }
+
 export enum SponsershipParty {
   INDIVIDUAL = "INDIVIDUAL",
   ORGANIZATION = "ORGANIZATION",
