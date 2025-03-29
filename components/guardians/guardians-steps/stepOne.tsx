@@ -42,20 +42,10 @@ const StepOne = ({ child, handleNext, updateChild }: ChildProps) => {
       }
       const entity: IChild = {
         ...values,
-        email: values.email,
-        firstName: values.firstName,
-        nationalId: values.nationalId,
         nationalImage: nationalImage && nationalImage?.length ? nationalImage[0]?.link || nationalImage[1]?.link || null : null,
         birthCertificate: birthDateImage && birthDateImage?.length ? birthDateImage[0]?.link || birthDateImage[1]?.link || null : null,
-        fatherName: values.fatherName,
-        motherName: values.motherName,
-        familyName: values.familyName,
         imageUrl: childImage && childImage?.length ? childImage[0]?.link || childImage[1]?.link || null : null,
-        gender: values.gender,
-        age: values.age,
         vedio: childVideo && childVideo?.length ? childVideo[0]?.link || childVideo[1]?.link || null : null,
-        address: values.address,
-        description: values.description,
         childNotes: childNotes.map(childNote => ({
           id: childNote.id,
           notes: {

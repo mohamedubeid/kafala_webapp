@@ -37,12 +37,6 @@ const StepTwo = ({ child, handleNext }: ChildProps) => {
     const saveEntity = (values: IChildHealthStatus) => {
       const entity: IChildHealthStatus = {
         ...values,
-        healthStatus: values.healthStatus,
-        chronicDisease: values.chronicDisease,
-        sychologicalHealth: values.sychologicalHealth,
-        hasMentalIllness: values.hasMentalIllness,
-        mentalIllnessType: values.mentalIllnessType,
-        sychologicalHealthType: values.sychologicalHealthType,
         disabilityImage: disabilityUrl && disabilityUrl.length ? disabilityUrl[0]?.link || disabilityUrl[1]?.link || null : null,
         mentalIllnessImage:
           mentalIllnessUrl && mentalIllnessUrl.length ? mentalIllnessUrl[0]?.link || mentalIllnessUrl[1]?.link || null : null,
@@ -50,7 +44,6 @@ const StepTwo = ({ child, handleNext }: ChildProps) => {
           sychologicalHealthUrl && sychologicalHealthUrl.length
             ? sychologicalHealthUrl[0]?.link || sychologicalHealthUrl[1]?.link || null
             : null,
-            healthReport: values.healthReport,
           childHealthNotes: childNotes.map(childNote => ({
           id: childNote.id,
           notes: {
@@ -60,7 +53,8 @@ const StepTwo = ({ child, handleNext }: ChildProps) => {
         })),
         child: child,
       };
-      setChildHealthStatusData(entity);
+      console.log(entity, 'eeeeeeeeeeeeeeeeeeeeeeeeeee')
+      // setChildHealthStatusData(entity);
     };
 
 
@@ -136,12 +130,12 @@ const StepTwo = ({ child, handleNext }: ChildProps) => {
 
         <Form.Item
           name="healthStatus"
-          label={translate("messages:healthStatus")}
+          label={translate("messages:HEALTH_STATUS")}
           initialValue={healthStatusValues[0]}
         >
           <Select
             id="health-status"
-            placeholder={translate("messages:healthStatus")}
+            placeholder={translate("messages:HEALTH_STATUS")}
             className="form-input h-[40px] w-full !overflow-hidden !border"
             rootClassName="!outline-none !shadow-none"
             options={healthStatusValues.map((status) => ({

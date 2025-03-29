@@ -115,7 +115,7 @@
   "GOOD": "جيد",
   "WEAK": "ضعيف",
   "POOR": "سيئ",
-  "healthStatus": "الحالة الصحية",
+  "HEALTH_STATUS": "الحالة الصحية",
   "chronicDisease": "مرض مزمن",
   "hasDisability": "لديه إعاقة",
   "sychologicalHealth": "الصحة النفسية",

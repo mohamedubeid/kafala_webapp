@@ -20,7 +20,6 @@ type ChildProps = {
 const StepThree = ({ child, handleNext }: ChildProps) => {
     const [formRef] = Form.useForm();
     const { t: translate } = useTranslation();
-    const { TextArea } = Input;
     const router = useRouter();
     const { id } = router.query;
 
@@ -34,16 +33,10 @@ const StepThree = ({ child, handleNext }: ChildProps) => {
     const saveEntity = (values: IChildMaritalStatus) => {
       const entity: IChildMaritalStatus = {
         ...values,
-        orphanClassification: values.orphanClassification,
-        fatherDateOfDeath: values.fatherDateOfDeath,
         dateOfBeathImage:
         dateOfBeathImageUrl && dateOfBeathImageUrl?.length ? dateOfBeathImageUrl[0]?.link || dateOfBeathImageUrl[1]?.link || null : null,
-        guardianName: values.guardianName,
-        guardianNationalID: values.guardianNationalID,
-        guardianRelationship: values.guardianRelationship,
         guardianDocument:
         guardianDocument && guardianDocument?.length ? guardianDocument[0]?.link || guardianDocument[1]?.link || null : null,
-        numOfSibiling: values.numOfSibiling,
         child: child,
       };
 
@@ -188,7 +181,7 @@ const StepThree = ({ child, handleNext }: ChildProps) => {
               : []),
           ]}
           maxLength={1}
-          removeImage={removeDateOfBeathImageUrl}
+          removeImage={removeguardianDocumentUrl}
           setImageUrl={(url: string | void) => {
             if (url) setGuardianDocument([...guardianDocument, { link: url }]);
           }}
@@ -200,7 +193,6 @@ const StepThree = ({ child, handleNext }: ChildProps) => {
           image/bmp,
           image/tiff,.pdf,.xlsx,.xls,.docx,.doc"
         />
-
 
         <Form.Item
           name="numOfSibiling"

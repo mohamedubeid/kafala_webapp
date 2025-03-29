@@ -68,10 +68,10 @@ export type ChildDTO = {
   totalCost: number;
   id?: number;
   firstName?: string;
-  imageUrl?: string;
+  imageUrl?: string | null;
   nationalId?: string;
-  nationalImage?: string;
-  birthCertificate?: string;
+  nationalImage?: string | null;
+  birthCertificate?: string | null;
   email?: string;
   fatherName?: string;
   fatherPhone?: string;
@@ -80,7 +80,7 @@ export type ChildDTO = {
   familyName?: string;
   gender?: Gender;
   age?: number;
-  vedio?: string;
+  vedio?: string | null;
   description?: any;
   address?: string;
   user?: UserType;

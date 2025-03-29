@@ -110,7 +110,7 @@
   "GOOD": "GOOD",
   "WEAK": "WEAK",
   "POOR": "POOR",
-  "healthStatus": "Health Status",
+  "HEALTH_STATUS": "Health Status",
   "chronicDisease": "Chronic Disease",
   "hasDisability": "Has Disability",
   "sychologicalHealth": "Sychological Health",

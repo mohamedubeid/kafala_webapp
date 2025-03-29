@@ -15,14 +15,14 @@ export enum LastLevelOfEducation {
 }
 
 export type ChildNotesDTO = {
-  id?: number;
-  notes?: NotesDTO;
+  id?: number | null;
+  notes?: NotesDTO | null;
   child?: ChildDTO;
 };
 
 export type NotesDTO = {
-  id?: number;
-  note?: any;
+  id?: number | null;
+  note?: any | null;
   childHealthNotes?: ChildHealthNotesDTO;
   childMaritalNotes?: ChildMaritalNotesDTO;
   childEducationNotes?: ChildEducationNotesDTO;
