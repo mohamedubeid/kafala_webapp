@@ -172,5 +172,11 @@
   "EDUCATIONAL": "تعليمي",
   "HEALTH": "صحي",
   "FINANCIAL": "مالي",
-  "SOCIAL": "اجتماعي"
+  "SOCIAL": "اجتماعي",
+  "HARMS": "اضرار اخري",
+  "lostHousing": "فقدان السكن",
+  "lostLimbs": "فقدان الأطراف",
+  "lostSight": "فقدان البصر",
+  "Lostabilitytohearorspeak": "فقدان القدرة على السمع أو الكلام",
+  "chronicDiseases": "الأمراض المزمنة"
 }

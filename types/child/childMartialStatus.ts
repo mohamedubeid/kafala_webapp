@@ -18,4 +18,5 @@ export interface IChildMaritalStatus {
   losthearorspeak?: boolean | null;
   hasChronicDiseases?: boolean | null;
   child?: IChild | null;
+  childMaritalNotes:  { id: number | null; notes: { id: number | null; note: string } }[];
 }

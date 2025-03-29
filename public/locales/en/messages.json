@@ -167,5 +167,11 @@
   "FINANCIAL": "FINANCIAL",
   "SOCIAL": "SOCIAL",
   "sponsershipType": "Sponsership Type",
-  "sponsershipType_error": "Please enter sponsorship type"
+  "sponsershipType_error": "Please enter sponsorship type",
+  "HARMS": "Harms",
+  "lostHousing": "Lost Housing",
+  "lostLimbs": "Lost Limbs",
+  "lostSight" : "Lost Sight",
+  "Lostabilitytohearorspeak": "Lost Ability to Hear Or Speak",
+  "chronicDiseases": "Chronic Diseases"
 }
