@@ -36,6 +36,7 @@ const StepOne = ({ child, handleNext, updateChild }: ChildProps) => {
     const [childVideo, setChildVideo] = useState<{ id?: number; link?: string }[]>([]);
     const [InitialChildVideoRemoved, setInitialChildVideoRemoved] = useState(false);
     const [childNotes, setChildNotes] = useState([{ id: null, notes: { id: null, note: '' }}]);
+
     const saveEntity = (values: IChild) => {
       if (values.age !== undefined && typeof values.age !== 'number') {
         values.age = Number(values.age);
@@ -54,6 +55,7 @@ const StepOne = ({ child, handleNext, updateChild }: ChildProps) => {
           },
         })),
       };
+      console.log('entity one: ', entity);
       setChildData(entity);
     };
 

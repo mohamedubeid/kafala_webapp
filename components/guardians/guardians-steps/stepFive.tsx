@@ -11,6 +11,7 @@ import { IChild } from "@/types/child/profile";
 import { IChildMaritalStatus } from "@/types/child/childMartialStatus";
 import { IChildEducationStatus } from "@/types/child/childEducationStatus";
 import { IChildSponsorShip } from "@/types/child/childSponsership";
+import useAddUpdateChildSponsorShip from "@/hooks/guardians/addUpdateChildSponsorShip";
 
 
 type ChildProps = {
@@ -26,15 +27,15 @@ const StepFive = ({ child, handleNext }: ChildProps) => {
     const router = useRouter();
     const { id } = router.query;
     const sponserConnectionValues = Object.keys(SponserConnection);
-    const sponsershipTypeValues = Object.keys(SponsershipType);
-
     const [childNotes, setChildNotes] = useState([{ id: null, notes: { id: null, note: '' }}]);
 
+    const { addUpdateResponse, addUpdateError, addUpdateLoading, setChildSponsorShipData } = useAddUpdateChildSponsorShip();
 
     const saveEntity = (values: IChildSponsorShip) => {
       const entity: IChildSponsorShip = {
         ...values,
         sponsershipDuration: 'ANNUAL',
+        minimumCost: values.minimumCost ? values.minimumCost * 12 : 0,
         child: child,
         childSponsorShipNotes: childNotes.map(childNote => ({
           id: childNote.id,
@@ -43,9 +44,29 @@ const StepFive = ({ child, handleNext }: ChildProps) => {
             note: childNote.notes.note,
           },
         })),
+        relSponsershipTypes: []
+        // const parsedValues = values.map((value:string) => JSON.parse(value)); // Parse the stringified values back to objects
+        // relSponsershipTypes: values.relSponsershipTypes.map((value:string) => {
+        //   const parsedValue = JSON.parse(value);
+        //   return {
+        //     id: parsedValue?.id,
+        //     // sponsershipType: {
+        //     //   id: sponsorType?.sponsershipType?.id,
+        //     //   type: sponsorType?.sponsershipType?.type,
+        //     // },
+        //   }
+        // })
+        // .map(sponsorType => ({
+        //   id: sponsorType?.id,
+          // sponsershipType: {
+          //   id: sponsorType?.sponsershipType?.id,
+          //   type: sponsorType?.sponsershipType?.type,
+          // },
+        // })),
       };
 
-      console.log(entity, 'eeeeeeeeeeeeeeeeeeeeee')
+      console.log('entity five: ', entity);
+      setChildSponsorShipData(entity);
     };
 
 
@@ -64,6 +85,26 @@ const StepFive = ({ child, handleNext }: ChildProps) => {
       newNotes[index].notes.note = event.target.value;
       setChildNotes(newNotes);
     };
+
+    useEffect(() => {
+      if (addUpdateResponse && addUpdateResponse.data.id) {
+        toast(translate("messages:CHILD_SAVED"), {
+          type: "success",
+          position: "top-left",
+        });
+        formRef.resetFields();
+        handleNext();
+      }
+    }, [addUpdateResponse]);
+
+    useEffect(() => {
+      if (addUpdateError) {
+        toast(translate("BAD_REQUEST"), {
+          type: "error",
+          position: "top-left",
+        });
+      }
+    }, [addUpdateError]);
 
     return (
       <div className="stepContainer">
@@ -141,7 +182,6 @@ const StepFive = ({ child, handleNext }: ChildProps) => {
         <Form.Item
           name="sponsershipType"
           label={translate("messages:sponsershipType") + '*'}
-          initialValue={sponsershipTypeValues[0]}
           rules={[
             {
               required: true,
@@ -151,12 +191,13 @@ const StepFive = ({ child, handleNext }: ChildProps) => {
         >
           <Select
             id="sponsershipType"
+            mode="multiple"
             placeholder={translate("messages:sponsershipType")}
             className="form-input h-[40px] w-full !overflow-hidden !border"
             rootClassName="!outline-none !shadow-none"
-            options={sponsershipTypeValues.map((sponsershipType) => ({
-              value: sponsershipType,
-              label: translate(`messages:${sponsershipType}`),
+            options={SponsershipType.map((sponsor) => ({
+              value: sponsor.type,
+              label: translate(`messages:${sponsor.type}`),
             }))}
           />
         </Form.Item>

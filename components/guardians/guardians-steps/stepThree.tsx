@@ -9,6 +9,7 @@ import useAddUpdateChildHealthStatus from "@/hooks/guardians/addUpdateChildHealt
 import { toast } from "react-toastify";
 import { IChild } from "@/types/child/profile";
 import { IChildMaritalStatus } from "@/types/child/childMartialStatus";
+import useAddUpdateChildMaritalStatus from "@/hooks/guardians/addUpdateChildMaritalStatus";
 
 
 type ChildProps = {
@@ -29,6 +30,7 @@ const StepThree = ({ child, handleNext }: ChildProps) => {
     const [dateOfBeathImageUrl, setDateOfBeathImageUrl] = useState<{ id?: number; link?: string }[]>([]);
     const [guardianDocument, setGuardianDocument] = useState<{ id?: number; link?: string }[]>([]);
 
+    const { addUpdateResponse, addUpdateError, addUpdateLoading, setChildMaritalStatusData } = useAddUpdateChildMaritalStatus();
 
     const saveEntity = (values: IChildMaritalStatus) => {
       const entity: IChildMaritalStatus = {
@@ -38,9 +40,11 @@ const StepThree = ({ child, handleNext }: ChildProps) => {
         guardianDocument:
         guardianDocument && guardianDocument?.length ? guardianDocument[0]?.link || guardianDocument[1]?.link || null : null,
         child: child,
+        childMaritalNotes: [],
       };
 
-      console.log(entity, 'eeeeeeeeeeeeeeeeeeeeee')
+      console.log('entity three: ', entity);
+      setChildMaritalStatusData(entity);
     };
 
     const removeDateOfBeathImageUrl = (fileIndex: number | void) => {
@@ -57,6 +61,26 @@ const StepThree = ({ child, handleNext }: ChildProps) => {
       }
       setGuardianDocument([...fileList]);
     };
+
+    useEffect(() => {
+      if (addUpdateResponse && addUpdateResponse.data.id) {
+        toast(translate("messages:CHILD_SAVED"), {
+          type: "success",
+          position: "top-left",
+        });
+        formRef.resetFields();
+        handleNext();
+      }
+    }, [addUpdateResponse]);
+
+    useEffect(() => {
+      if (addUpdateError) {
+        toast(translate("BAD_REQUEST"), {
+          type: "error",
+          position: "top-left",
+        });
+      }
+    }, [addUpdateError]);
 
     return (
       <div className="stepContainer">

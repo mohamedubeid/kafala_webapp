@@ -53,8 +53,8 @@ const StepTwo = ({ child, handleNext }: ChildProps) => {
         })),
         child: child,
       };
-      console.log(entity, 'eeeeeeeeeeeeeeeeeeeeeeeeeee')
-      // setChildHealthStatusData(entity);
+      console.log('entity two: ', entity);
+      setChildHealthStatusData(entity);
     };
 
 

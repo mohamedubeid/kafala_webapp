@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { IChild } from "@/types/child/profile";
 import { IChildMaritalStatus } from "@/types/child/childMartialStatus";
 import { IChildEducationStatus } from "@/types/child/childEducationStatus";
+import useAddUpdateChildEducationStatus from "@/hooks/guardians/addUpdateChildEducationStatus";
 
 
 type ChildProps = {
@@ -29,6 +30,7 @@ const StepFour = ({ child, handleNext }: ChildProps) => {
     const [childNotes, setChildNotes] = useState([{ id: null, notes: { id: null, note: '' }}]);
     const [lastLevelOfEducationImageUrl, setLastLevelOfEducationImageUrl] = useState<{ id?: number; link?: string }[]>([]);
 
+  const { addUpdateResponse, addUpdateError, addUpdateLoading, setChildEducationStatusData } = useAddUpdateChildEducationStatus();
 
     const saveEntity = (values: IChildEducationStatus) => {
       const entity: IChildEducationStatus = {
@@ -44,8 +46,8 @@ const StepFour = ({ child, handleNext }: ChildProps) => {
           },
         })),
       };
-
-      console.log(entity, 'eeeeeeeeeeeeeeeeeeeeee')
+      console.log('entity four: ', entity);
+      setChildEducationStatusData(entity)
     };
 
     const removeLastLevelOfEducationImageUrl = (fileIndex: number | void) => {
@@ -70,6 +72,26 @@ const StepFour = ({ child, handleNext }: ChildProps) => {
       newNotes[index].notes.note = event.target.value;
       setChildNotes(newNotes);
     };
+
+    useEffect(() => {
+      if (addUpdateResponse && addUpdateResponse.data.id) {
+        toast(translate("messages:CHILD_SAVED"), {
+          type: "success",
+          position: "top-left",
+        });
+        formRef.resetFields();
+        handleNext();
+      }
+    }, [addUpdateResponse]);
+
+    useEffect(() => {
+      if (addUpdateError) {
+        toast(translate("BAD_REQUEST"), {
+          type: "error",
+          position: "top-left",
+        });
+      }
+    }, [addUpdateError]);
 
     return (
       <div className="stepContainer">

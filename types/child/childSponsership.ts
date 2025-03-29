@@ -10,4 +10,5 @@ export interface IChildSponsorShip {
   minimumCost?: number | null;
   child?: IChild | null;
   childSponsorShipNotes?: { id: number | null; notes: { id: number | null; note: string } }[];
+  relSponsershipTypes: any[];
 }

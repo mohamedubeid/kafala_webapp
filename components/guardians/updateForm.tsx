@@ -66,7 +66,7 @@ const UpdateForm = () => {
   ];
 
 
-  const [stepNumber, setStepNumder] = useState<number>(1);
+  const [stepNumber, setStepNumder] = useState<number>(0);
   const [completedSteps, setCompletedSteps] = useState<number[]>(isNew ? [0] : steps.map((_, index) => index));
 
   const handleStepClick = (stepIndex: number) => {

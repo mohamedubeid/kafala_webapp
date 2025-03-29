@@ -173,5 +173,10 @@
   "lostLimbs": "Lost Limbs",
   "lostSight" : "Lost Sight",
   "Lostabilitytohearorspeak": "Lost Ability to Hear Or Speak",
-  "chronicDiseases": "Chronic Diseases"
+  "chronicDiseases": "Chronic Diseases",
+  "PRIMARY": "PRIMARY",
+  "SECONDARY": "SECONDARY",
+  "TERTIARY": "TERTIARY",
+  "VOCATIONAL": "VOCATIONAL",
+  "NONE": "NONE"
 }

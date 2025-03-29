@@ -58,13 +58,21 @@ export enum LastLevelOfEducation {
   NONE = "NONE",
 }
 
-export enum SponsershipType {
-  EDUCATIONAL = "EDUCATIONAL",
-  HEALTH = "HEALTH",
-  FINANCIAL = "FINANCIAL",
-  SOCIAL = "SOCIAL",
-  OTHER = "OTHER",
-}
+// export enum SponsershipType {
+//   EDUCATIONAL = "EDUCATIONAL",
+//   HEALTH = "HEALTH",
+//   FINANCIAL = "FINANCIAL",
+//   SOCIAL = "SOCIAL",
+//   OTHER = "OTHER",
+// }
+
+export const SponsershipType = [
+  { id: 1, type: 'HEALTH' },
+  { id: 2, type: 'SOCIAL' },
+  { id: 3, type: 'FINANCIAL' },
+  { id: 4, type: 'EDUCATIONAL' },
+  { id: 5, type: 'OTHER' },
+];
 
 export enum SychologicalHealthTypes {
   STABLE = "STABLE",

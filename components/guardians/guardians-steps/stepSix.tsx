@@ -9,6 +9,7 @@ import useAddUpdateChildHealthStatus from "@/hooks/guardians/addUpdateChildHealt
 import { toast } from "react-toastify";
 import { IChild } from "@/types/child/profile";
 import { IChildMaritalStatus } from "@/types/child/childMartialStatus";
+import useAddUpdateChildMaritalStatus from "@/hooks/guardians/addUpdateChildMaritalStatus";
 
 
 type ChildProps = {
@@ -27,6 +28,8 @@ const StepSix = ({ child, handleNext }: ChildProps) => {
 
     const [childNotes, setChildNotes] = useState([{ id: null, notes: { id: null, note: '' }}]);
 
+    const { addUpdateResponse, addUpdateError, addUpdateLoading, setChildMaritalStatusData } = useAddUpdateChildMaritalStatus();
+
     const saveEntity = (values: IChildMaritalStatus) => {
       const entity: IChildMaritalStatus = {
         ...values,
@@ -39,7 +42,8 @@ const StepSix = ({ child, handleNext }: ChildProps) => {
         })),
         child: child,
       };
-      console.log(entity, 'eeeeeeeentity')
+      console.log('entity six: ', entity);
+      setChildMaritalStatusData(entity);
     };
 
 
@@ -55,6 +59,27 @@ const StepSix = ({ child, handleNext }: ChildProps) => {
       newNotes[index].notes.note = event.target.value;
       setChildNotes(newNotes);
     };
+
+    useEffect(() => {
+      if (addUpdateResponse && addUpdateResponse.data.id) {
+        toast(translate("messages:CHILD_SAVED"), {
+          type: "success",
+          position: "top-left",
+        });
+        formRef.resetFields();
+        handleNext();
+      }
+    }, [addUpdateResponse]);
+
+    useEffect(() => {
+      if (addUpdateError) {
+        toast(translate("BAD_REQUEST"), {
+          type: "error",
+          position: "top-left",
+        });
+      }
+    }, [addUpdateError]);
+
 
     return (
       <div className="stepContainer">
@@ -102,7 +127,7 @@ const StepSix = ({ child, handleNext }: ChildProps) => {
         </Form.Item>
 
         <Form.Item
-          name="Lostabilitytohearorspeak"
+          name="losthearorspeak"
           valuePropName="checked"
           getValueFromEvent={(e) => e.target.checked ? 1 : 0}
           initialValue={0}
@@ -113,7 +138,7 @@ const StepSix = ({ child, handleNext }: ChildProps) => {
         </Form.Item>
 
         <Form.Item
-          name="chronicDiseases"
+          name="hasChronicDiseases"
           valuePropName="checked"
           getValueFromEvent={(e) => e.target.checked ? 1 : 0}
           initialValue={0}
