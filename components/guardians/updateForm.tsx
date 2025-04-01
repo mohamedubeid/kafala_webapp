@@ -107,7 +107,7 @@ const UpdateForm = () => {
     if (!isNew && !childEntity && childId) {
       setChildEntity(childData);
     }
-  }, [isNew, childEntity, childId]);
+  }, [isNew, childEntity, childId, childData]);
 
 
   return (
