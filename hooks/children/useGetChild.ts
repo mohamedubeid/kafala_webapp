@@ -4,11 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const useGetChild = (id: number, { enabled }: { enabled: boolean }) => {
   const getChildData = async (): Promise<ChildDTO> => {
-    const res = await client.get(`/api/v2/children/${id}`, {
-      params: {
-        id,
-      },
-    });
+    const res = await client.get(`/api/v2/children/${id}`);
     return res.data;
   };
   const {refetch, ...childDataQuery} = useQuery({
