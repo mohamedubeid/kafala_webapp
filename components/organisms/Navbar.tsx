@@ -145,15 +145,15 @@ const Navbar = ({
                           <li>
                             <a
                               className={
-                                activeLink === "/guardians/list"
+                                activeLink === "/guardian-child/list"
                                   ? "activeLink"
                                   : ""
                               }
                               onClick={() =>
-                                handleLinkClick("/guardians/list")
+                                handleLinkClick("/guardian-child/list")
                               }
                             >
-                              {translate("YOUR_GUARDIANS")}
+                              {translate("YOUR_CHILDS")}
                             </a>
                           </li>
                         )}

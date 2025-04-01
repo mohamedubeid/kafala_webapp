@@ -26,7 +26,7 @@ console.log("guardianChilds", guardianChilds);
           <Button
               className="mt-7 h-[45px] w-[200px] rounded-full border border-solid border-kafalaPrimary bg-kafalaPrimary text-lg !text-white duration-300 hover:!border-kafalaPrimary-400 hover:!bg-kafalaPrimary-400"
               onClick={() => {
-                router.push("/guardians/update");
+                router.push("/guardian-child/new");
               }}
             >
               {translate("children:ADD_CHILD")}
@@ -44,7 +44,7 @@ console.log("guardianChilds", guardianChilds);
             guardianChilds?.map((guardianChild, index) => {
               return (
                 <Col key={index} xs={24} md={12}>
-                  <Link href="/guardians/update">
+                  <Link href={`/guardian-child/${guardianChild.id}/update`}>
                     <div className="mb-2 w-full rounded-[16px] bg-[#F3F8F8] p-5 transition-colors duration-400 hover:bg-[#E0F7FA]">
                       <div className="flex flex-col lg:flex-row items-center gap-y-4">
                         <div className="w-full lg:w-auto flex justify-between items-center">

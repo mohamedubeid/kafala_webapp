@@ -22,8 +22,9 @@ const UpdateForm = () => {
   const { t: translate } = useTranslation();
   const router = useRouter();
   const { id } = router.query;
+  const isNew = id?.[0] === 'new';
+  const childId = isNew ? null : id?.[0];
 
-  const isNew = id === undefined;
   const [childEntity, setChildEntity] = useState({});
 
   const steps = [

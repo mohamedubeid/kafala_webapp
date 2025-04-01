@@ -3,7 +3,7 @@ import { ReactElement } from "react";
 import HomeLayout from "@/components/layouts/HomePageLayout";
 import UpdateForm from "@/components/guardians/updateForm";
 
-export default function UpdateGuardianPage() {
+export default function ChildFormPage() {
   return <UpdateForm />;
 }
 export async function getServerSideProps({ locale }: { locale: string }) {
@@ -20,6 +20,6 @@ export async function getServerSideProps({ locale }: { locale: string }) {
   };
 }
 
-UpdateGuardianPage.getLayout = function getLayout(page: ReactElement) {
+ChildFormPage.getLayout = function getLayout(page: ReactElement) {
   return <HomeLayout navbarStatic={true}>{page}</HomeLayout>;
 };
