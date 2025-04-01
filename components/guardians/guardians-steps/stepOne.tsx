@@ -157,16 +157,21 @@ const StepOne = ({ child, handleNext, updateChild, refetch }: ChildProps) => {
 
       useEffect(() => {
         if (addUpdateResponse && addUpdateResponse.data.id) {
-          toast(translate("messages:CILD_CREATED"), {
-            type: "success",
-            position: "top-left",
-          });
-          formRef.resetFields();
           if(isNew) {
+            toast(translate("messages:CILD_CREATED"), {
+              type: "success",
+              position: "top-left",
+            });
+            formRef.resetFields();
             updateChild(addUpdateResponse.data);
+          } else {
+            toast(translate("messages:CHILD_SAVED"), {
+              type: "success",
+              position: "top-left",
+            });
+            formRef.resetFields();
+            refetch();
           }
-          refetch();
-          console.log("addUpdateResponse.data: ", addUpdateResponse.data);
           handleNext();
         }
       }, [addUpdateResponse]);
