@@ -19,12 +19,12 @@ console.log("guardianChilds", guardianChilds);
   return (
     <section className="main-sections">
       <div className="container">
-        <div className="kids-header flex flex-wrap items-start justify-between gap-3 md:text-lg mb-12">
-          <div className="kids-title section-title">
+        <div className="kids-header flex flex-wrap items-start justify-between items-center gap-3 md:text-lg mb-12">
+          <div className="kids-title section-title mb-0">
             {translate("children:guardianshipChildren")}
           </div>
           <Button
-              className="mt-7 h-[45px] w-[200px] rounded-full border border-solid border-kafalaPrimary bg-kafalaPrimary text-lg !text-white duration-300 hover:!border-kafalaPrimary-400 hover:!bg-kafalaPrimary-400"
+              className="h-[45px] w-[200px] rounded-full border border-solid border-kafalaPrimary bg-kafalaPrimary text-lg !text-white duration-300 hover:!border-kafalaPrimary-400 hover:!bg-kafalaPrimary-400"
               onClick={() => {
                 router.push("/guardian-child/new");
               }}

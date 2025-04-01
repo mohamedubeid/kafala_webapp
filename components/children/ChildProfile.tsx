@@ -17,7 +17,9 @@ const ChildProfile = () => {
   const router = useRouter();
   const { query } = router;
   const { childId } = query;
-  const { data: childData } = useGetChild(Number(childId) || -1);
+  const { data: childData } = useGetChild(Number(childId),{
+    enabled: true
+  });
   const { kafeel: kafeelData, getKafeel } = useKafeel();
   const { t: translate } = useTranslation();
   const { data: firstPendingRequest, refetch } = useGetFirstSubscriptionPending(

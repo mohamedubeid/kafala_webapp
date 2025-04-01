@@ -10,10 +10,11 @@ import { toast } from "react-toastify";
 import { IChild } from "@/types/child/profile";
 import { IChildMaritalStatus } from "@/types/child/childMartialStatus";
 import useAddUpdateChildMaritalStatus from "@/hooks/guardians/addUpdateChildMaritalStatus";
+import { ChildDTO } from "@/types/child";
 
 
 type ChildProps = {
-  child?: IChild;
+  child?: ChildDTO;
   handleNext: () => void;
 };
 

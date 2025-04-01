@@ -8,11 +8,12 @@ import { Gender } from "@/types/enm";
 import useAddUpdateChild from "@/hooks/guardians/addUpdateChild";
 import { IChild } from "@/types/child/profile";
 import { toast } from "react-toastify";
+import { ChildDTO } from "@/types/child";
 
 type ChildProps = {
-  child?: IChild;
+  child?: ChildDTO;
   handleNext: () => void;
-  updateChild: Dispatch<SetStateAction<IChild>>;
+  updateChild: Dispatch<SetStateAction<ChildDTO | undefined>>;
 };
 
 

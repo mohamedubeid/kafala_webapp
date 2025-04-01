@@ -1,6 +1,6 @@
 import { OrphanClassification } from "../enm";
 import dayjs from 'dayjs';
-import { IChild } from "./profile";
+import { ChildDTO } from "../child";
 
 export interface IChildMaritalStatus {
   id?: number;
@@ -17,6 +17,6 @@ export interface IChildMaritalStatus {
   lostSight?: boolean | null;
   losthearorspeak?: boolean | null;
   hasChronicDiseases?: boolean | null;
-  child?: IChild | null;
+  child?: ChildDTO | null;
   childMaritalNotes:  { id: number | null; notes: { id: number | null; note: string } }[];
 }

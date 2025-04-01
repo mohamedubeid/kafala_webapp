@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Import Swiper styles
 import "swiper/css";
@@ -15,6 +15,8 @@ import StepThree from "./guardians-steps/stepThree";
 import StepFour from "./guardians-steps/stepFour";
 import StepFive from "./guardians-steps/stepFive";
 import StepSix from "./guardians-steps/stepSix";
+import { ChildDTO } from "@/types/child";
+import useGetChild from "@/hooks/children/useGetChild";
 
 
 const UpdateForm = () => {
@@ -25,7 +27,13 @@ const UpdateForm = () => {
   const isNew = id?.[0] === 'new';
   const childId = isNew ? null : id?.[0];
 
-  const [childEntity, setChildEntity] = useState({});
+  const [childEntity, setChildEntity] = useState<ChildDTO>();
+  console.log('childEntity: ', childEntity);
+
+  const { data: childData } = useGetChild(Number(childId), {
+    enabled: !!childId && !isNew && !childEntity,
+  });
+
 
   const steps = [
     {
@@ -95,6 +103,12 @@ const UpdateForm = () => {
     }
   };
 
+  useEffect(() => {
+    if (!isNew && !childEntity && childId) {
+      setChildEntity(childData);
+    }
+  }, [isNew, childEntity, childId]);
+
 
   return (
     <section className="main-sections">
@@ -117,8 +131,7 @@ const UpdateForm = () => {
           />
 
           <div>
-
-            {stepNumber === 0 && <StepOne handleNext={handleNext} updateChild={setChildEntity}/>}
+            {stepNumber === 0 && <StepOne handleNext={handleNext} updateChild={setChildEntity} child={childEntity}/>}
             {stepNumber === 1 && <StepTwo handleNext={handleNext} child={childEntity}/>}
             {stepNumber === 2 && <StepThree handleNext={handleNext} child={childEntity}/>}
             {stepNumber === 3 && <StepFour handleNext={handleNext} child={childEntity}/>}

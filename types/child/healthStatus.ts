@@ -1,5 +1,5 @@
+import { ChildDTO } from "../child";
 import { HealthStatus, DisabilityTypes, MentalIllnessTypes, SychologicalHealthTypes } from "../enm";
-import { IChild } from "./profile";
 
 export interface IChildHealthStatus {
   id?: number;
@@ -15,6 +15,6 @@ export interface IChildHealthStatus {
   sychologicalHealthType?: keyof typeof SychologicalHealthTypes | null;
   sychologicalHealthImage?: string | null;
   healthReport?: string | null;
-  child?: IChild | null;
+  child?: ChildDTO | null;
   childHealthNotes?: { id: number | null; notes: { id: number | null; note: string } }[];
 }

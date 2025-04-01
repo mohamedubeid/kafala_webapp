@@ -7,11 +7,11 @@ import { IChildHealthStatus } from "@/types/child/healthStatus";
 import UploadImage from "uploads/UploadImage";
 import useAddUpdateChildHealthStatus from "@/hooks/guardians/addUpdateChildHealthStatus";
 import { toast } from "react-toastify";
-import { IChild } from "@/types/child/profile";
+import { ChildDTO } from "@/types/child";
 
 
 type ChildProps = {
-  child?: IChild;
+  child?: ChildDTO;
   handleNext: () => void;
 };
 
