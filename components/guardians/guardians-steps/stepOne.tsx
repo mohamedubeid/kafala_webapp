@@ -14,16 +14,18 @@ type ChildProps = {
   child?: ChildDTO;
   handleNext: () => void;
   updateChild: Dispatch<SetStateAction<ChildDTO | undefined>>;
+  refetch: any;
 };
 
 
-const StepOne = ({ child, handleNext, updateChild }: ChildProps) => {
+const StepOne = ({ child, handleNext, updateChild, refetch }: ChildProps) => {
     const [formRef] = Form.useForm();
     const { t: translate } = useTranslation();
     const { TextArea } = Input;
     const router = useRouter();
     const { id } = router.query;
-    const isNew = id === undefined;
+    const isNew = id?.[0] === 'new';
+
     const genderValues = Object.keys(Gender);
 
     const { addUpdateResponse, addUpdateError, addUpdateLoading, setChildData } = useAddUpdateChild();
@@ -36,25 +38,67 @@ const StepOne = ({ child, handleNext, updateChild }: ChildProps) => {
     const [InitialChildImageRemoved, setInitialChildImageRemoved] = useState(false);
     const [childVideo, setChildVideo] = useState<{ id?: number; link?: string }[]>([]);
     const [InitialChildVideoRemoved, setInitialChildVideoRemoved] = useState(false);
-    const [childNotes, setChildNotes] = useState([{ id: null, notes: { id: null, note: '' }}]);
+    const [childNotes, setChildNotes] = useState<{ id: number | null; notes: { id: number | null; note: string } }[]>([{ id: null, notes: { id: null, note: '' }}]);
 
-    const saveEntity = (values: IChild) => {
+    useEffect(() => {
+      if (child && !isNew) {
+        formRef.setFieldsValue({
+          email: child.email,
+          firstName: child.firstName,
+          nationalId: child.nationalId,
+          fatherName: child.fatherName,
+          motherName: child.motherName,
+          familyName: child.familyName,
+          gender: child.gender,
+          age: child.age,
+          address: child.address,
+          description: child.description,
+        });
+  
+        // Set images and notes
+        setNationalImage(child.nationalImage ? [{ link: child.nationalImage }] : []);
+        setBirthDateImage(child.birthCertificate ? [{ link: child.birthCertificate }] : []);
+        setChildImage(child.imageUrl ? [{ link: child.imageUrl }] : []);
+        setChildVideo(child.vedio ? [{ link: child.vedio }] : []);
+
+        if (!isNew && child && child.childNotes && child.childNotes?.length > 0) {
+          setChildNotes(
+            child.childNotes
+              ? child.childNotes.map(childNote => ({
+                  id: childNote.id ?? null,
+                  notes: { id: childNote.notes?.id ?? null, note: childNote.notes?.note || '' },
+                }))
+              : []
+          );
+        } else {
+          setChildNotes([{ id: null, notes: { id: null, note: '' }}]);
+        }
+      }
+    }, [child, formRef]);
+
+    const saveEntity = (values: ChildDTO) => {
       if (values.age !== undefined && typeof values.age !== 'number') {
         values.age = Number(values.age);
       }
-      const entity: IChild = {
+
+      const updatedChildNotes = Array.isArray(childNotes)
+      ? childNotes.map(childNote => ({
+          id: childNote.id,
+          notes: {
+            id: childNote.notes?.id ?? null,
+            note: childNote.notes?.note ?? '',
+          },
+        }))
+      : [];
+
+      const entity: ChildDTO = {
+        ...child,
         ...values,
         nationalImage: nationalImage && nationalImage?.length ? nationalImage[0]?.link || nationalImage[1]?.link || null : null,
         birthCertificate: birthDateImage && birthDateImage?.length ? birthDateImage[0]?.link || birthDateImage[1]?.link || null : null,
         imageUrl: childImage && childImage?.length ? childImage[0]?.link || childImage[1]?.link || null : null,
         vedio: childVideo && childVideo?.length ? childVideo[0]?.link || childVideo[1]?.link || null : null,
-        childNotes: childNotes.map(childNote => ({
-          id: childNote.id,
-          notes: {
-            id: childNote.notes.id,
-            note: childNote.notes.note,
-          },
-        })),
+        childNotes: updatedChildNotes,
       };
       console.log('entity one: ', entity);
       setChildData(entity);
@@ -118,7 +162,11 @@ const StepOne = ({ child, handleNext, updateChild }: ChildProps) => {
             position: "top-left",
           });
           formRef.resetFields();
-          updateChild(addUpdateResponse.data);
+          if(isNew) {
+            updateChild(addUpdateResponse.data);
+          }
+          refetch();
+          console.log("addUpdateResponse.data: ", addUpdateResponse.data);
           handleNext();
         }
       }, [addUpdateResponse]);
@@ -366,7 +414,7 @@ const StepOne = ({ child, handleNext, updateChild }: ChildProps) => {
           rules={[
             {
               required: true,
-              message: translate("GENDER_ERROR"),
+              message: translate("messages:GENDER_ERROR"),
               type: "string",
             },
           ]}

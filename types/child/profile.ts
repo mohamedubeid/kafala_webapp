@@ -1,4 +1,5 @@
 import { Gender } from "../enm";
+import { ChildNotesDTO } from "../note";
 
 export type IChild = {
   id?: number;
@@ -19,5 +20,5 @@ export type IChild = {
   description?: string | null;
   address?: string | null;
   score?: number | null;
-  childNotes?: { id: number | null; notes: { id: number | null; note: string } }[];
+  childNotes?: ChildNotesDTO[];
 };

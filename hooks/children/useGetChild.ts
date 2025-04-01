@@ -11,13 +11,14 @@ const useGetChild = (id: number, { enabled }: { enabled: boolean }) => {
     });
     return res.data;
   };
-  const childDataQuery = useQuery({
+  const {refetch, ...childDataQuery} = useQuery({
     queryKey: ["children/profile", id],
     queryFn: getChildData,
     enabled, // Use the enabled option to conditionally run the query
   });
   return {
     ...childDataQuery,
+    refetch,
   };
 };
 

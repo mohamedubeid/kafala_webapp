@@ -30,7 +30,7 @@ const UpdateForm = () => {
   const [childEntity, setChildEntity] = useState<ChildDTO>();
   console.log('childEntity: ', childEntity);
 
-  const { data: childData } = useGetChild(Number(childId), {
+  const { data: childData, refetch } = useGetChild(Number(childId), {
     enabled: !!childId && !isNew && !childEntity,
   });
 
@@ -104,10 +104,10 @@ const UpdateForm = () => {
   };
 
   useEffect(() => {
-    if (!isNew && !childEntity && childId) {
+    if (!isNew && childId) {
       setChildEntity(childData);
     }
-  }, [isNew, childEntity, childId, childData]);
+  }, [isNew, childId, childData]);
 
 
   return (
@@ -131,7 +131,7 @@ const UpdateForm = () => {
           />
 
           <div>
-            {stepNumber === 0 && <StepOne handleNext={handleNext} updateChild={setChildEntity} child={childEntity}/>}
+            {stepNumber === 0 && <StepOne handleNext={handleNext} updateChild={setChildEntity} child={childEntity} refetch={refetch}/>}
             {stepNumber === 1 && <StepTwo handleNext={handleNext} child={childEntity}/>}
             {stepNumber === 2 && <StepThree handleNext={handleNext} child={childEntity}/>}
             {stepNumber === 3 && <StepFour handleNext={handleNext} child={childEntity}/>}
