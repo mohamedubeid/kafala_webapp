@@ -141,32 +141,36 @@ const Navbar = ({
                           toggleNav ? "smallScreenUi block" : "navMenu xl:flex"
                         }`}
                       >
-                        <li>
-                          <a
-                            className={
-                              activeLink === "/children/my-children"
-                                ? "activeLink"
-                                : ""
-                            }
-                            onClick={() =>
-                              handleLinkClick("/guardians/list")
-                            }
-                          >
-                            {translate("YOUR_GUARDIANS")}
-                          </a>
-                        </li>
-                        <li className="cursor-not-allowed">
-                          <a
-                            className={
-                              activeLink === "/kafeel/home"
-                                ? "activeLink"
-                                : ""
-                            }
-                            onClick={() => handleLinkClick("/kafeel/home")}
-                          >
-                            {translate("HOME")}
-                          </a>
-                        </li>
+                        {user?.authorities?.includes("ROLE_CHILD_GUARDIAN") && (
+                          <li>
+                            <a
+                              className={
+                                activeLink === "/guardians/list"
+                                  ? "activeLink"
+                                  : ""
+                              }
+                              onClick={() =>
+                                handleLinkClick("/guardians/list")
+                              }
+                            >
+                              {translate("YOUR_GUARDIANS")}
+                            </a>
+                          </li>
+                        )}
+                        {user?.authorities?.includes("ROLE_GURANTOR") && (
+                          <li>
+                            <a
+                              className={
+                                activeLink === "/kafeel/home"
+                                  ? "activeLink"
+                                  : ""
+                              }
+                              onClick={() => handleLinkClick("/kafeel/home")}
+                            >
+                              {translate("HOME")}
+                            </a>
+                          </li>
+                        )}
                         <li>
                           <a
                             className={

@@ -39,8 +39,12 @@
   "sponsoredChildren": "اطفال تحت كفالتك",
   "guardianshipChildren": "اطفال تحت وصايتك",
   "sponsorshipFinished": "انتهاء الكفالة",
+  "cost_yearly": "مبلغ الكفالة سنوياً",
+  "sponsorshipName": "اسم الجمعية",
+  "collectedUntilNow": "المجمع حتي الان",
   "noChildrenFound": "لا يوجد اطفال",
   "renewSponsorship": "تجديد الكفالة",
+  "transactions": "المعاملات",
   "saveAndContinue": "الحفظ والاستمرار",
   "saveAndFinish": "الحفظ والانهاء",
   "ORPHAN": {
