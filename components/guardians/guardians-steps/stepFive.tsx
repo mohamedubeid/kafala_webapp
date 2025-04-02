@@ -2,17 +2,12 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Form, Input, Button, Select, Checkbox } from "antd";
 import { useTranslation } from "next-i18next";
-import { HealthStatus, LastLevelOfEducation, MentalIllnessTypes, OrphanClassification, SponserConnection, SponsershipType, SychologicalHealthTypes } from "@/types/enm";
-import { IChildHealthStatus } from "@/types/child/healthStatus";
-import UploadImage from "uploads/UploadImage";
-import useAddUpdateChildHealthStatus from "@/hooks/guardians/addUpdateChildHealthStatus";
+import { SponserConnection, SponsershipType } from "@/types/enm";
 import { toast } from "react-toastify";
-import { IChild } from "@/types/child/profile";
-import { IChildMaritalStatus } from "@/types/child/childMartialStatus";
-import { IChildEducationStatus } from "@/types/child/childEducationStatus";
 import { IChildSponsorShip } from "@/types/child/childSponsership";
 import useAddUpdateChildSponsorShip from "@/hooks/guardians/addUpdateChildSponsorShip";
 import { ChildDTO } from "@/types/child";
+import useGetChildSponsorShip from "@/hooks/children/useGetChildSponsorShip";
 
 
 type ChildProps = {
@@ -27,13 +22,49 @@ const StepFive = ({ child, handleNext }: ChildProps) => {
     const { TextArea } = Input;
     const router = useRouter();
     const { id } = router.query;
+    const isNew = id?.[0] === 'new';
+
     const sponserConnectionValues = Object.keys(SponserConnection);
-    const [childNotes, setChildNotes] = useState([{ id: null, notes: { id: null, note: '' }}]);
+    const [childNotes, setChildNotes] = useState<{ id: number | null; notes: { id: number | null; note: string } }[]>([{ id: null, notes: { id: null, note: '' }}]);
 
     const { addUpdateResponse, addUpdateError, addUpdateLoading, setChildSponsorShipData } = useAddUpdateChildSponsorShip();
 
+    const [isFormInitialized, setIsFormInitialized] = useState(false);
+    const { data: childSponsorShipData } = useGetChildSponsorShip(Number(child?.childSponsorShip?.id), {
+      enabled: !!child?.childSponsorShip?.id && !isNew && !isFormInitialized,
+    });
+
+    useEffect(() => {
+      if (childSponsorShipData && !isNew) {
+
+        formRef.setFieldsValue({
+          name: childSponsorShipData.name,
+          sponserConnection: childSponsorShipData.sponserConnection,
+          sponsershipDuration: translate("messages:ANNUAL"),
+          sponsershipType: childSponsorShipData.relSponsershipTypes?.map((type) => type.sponsershipType?.type),
+          minimumCost: childSponsorShipData.minimumCost ? childSponsorShipData.minimumCost / 12 : 0,
+        });
+
+        if (!isNew && childSponsorShipData.childSponsorShipNotes && childSponsorShipData.childSponsorShipNotes?.length > 0) {
+          setChildNotes(
+            childSponsorShipData.childSponsorShipNotes
+              ? childSponsorShipData.childSponsorShipNotes.map(childSponsorShipNote => ({
+                  id: childSponsorShipNote.id ?? null,
+                  notes: { id: childSponsorShipNote.notes?.id ?? null, note: childSponsorShipNote.notes?.note || '' },
+                }))
+              : []
+          );
+        } else {
+          setChildNotes([{ id: null, notes: { id: null, note: '' }}]);
+        }
+
+        setIsFormInitialized(true);
+      }
+    }, [childSponsorShipData, formRef]);
+
     const saveEntity = (values: IChildSponsorShip) => {
       const entity: IChildSponsorShip = {
+        ...childSponsorShipData,
         ...values,
         sponsershipDuration: 'ANNUAL',
         minimumCost: values.minimumCost ? values.minimumCost * 12 : 0,
@@ -45,25 +76,6 @@ const StepFive = ({ child, handleNext }: ChildProps) => {
             note: childNote.notes.note,
           },
         })),
-        relSponsershipTypes: []
-        // const parsedValues = values.map((value:string) => JSON.parse(value)); // Parse the stringified values back to objects
-        // relSponsershipTypes: values.relSponsershipTypes.map((value:string) => {
-        //   const parsedValue = JSON.parse(value);
-        //   return {
-        //     id: parsedValue?.id,
-        //     // sponsershipType: {
-        //     //   id: sponsorType?.sponsershipType?.id,
-        //     //   type: sponsorType?.sponsershipType?.type,
-        //     // },
-        //   }
-        // })
-        // .map(sponsorType => ({
-        //   id: sponsorType?.id,
-          // sponsershipType: {
-          //   id: sponsorType?.sponsershipType?.id,
-          //   type: sponsorType?.sponsershipType?.type,
-          // },
-        // })),
       };
 
       console.log('entity five: ', entity);

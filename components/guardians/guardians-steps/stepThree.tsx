@@ -1,16 +1,14 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Form, Input, Button, Select, Checkbox } from "antd";
+import { Form, Input, Select } from "antd";
 import { useTranslation } from "next-i18next";
-import { HealthStatus, MentalIllnessTypes, OrphanClassification, SychologicalHealthTypes } from "@/types/enm";
-import { IChildHealthStatus } from "@/types/child/healthStatus";
+import { OrphanClassification } from "@/types/enm";
 import UploadImage from "uploads/UploadImage";
-import useAddUpdateChildHealthStatus from "@/hooks/guardians/addUpdateChildHealthStatus";
 import { toast } from "react-toastify";
-import { IChild } from "@/types/child/profile";
 import { IChildMaritalStatus } from "@/types/child/childMartialStatus";
 import useAddUpdateChildMaritalStatus from "@/hooks/guardians/addUpdateChildMaritalStatus";
 import { ChildDTO } from "@/types/child";
+import useGetChildMaritalStatus from "@/hooks/children/useGetChildMaritalStatus";
 
 
 type ChildProps = {
@@ -24,17 +22,48 @@ const StepThree = ({ child, handleNext }: ChildProps) => {
     const { t: translate } = useTranslation();
     const router = useRouter();
     const { id } = router.query;
+    const isNew = id?.[0] === 'new';
 
     const orphanClassificationValues = Object.keys(OrphanClassification);
-
 
     const [dateOfBeathImageUrl, setDateOfBeathImageUrl] = useState<{ id?: number; link?: string }[]>([]);
     const [guardianDocument, setGuardianDocument] = useState<{ id?: number; link?: string }[]>([]);
 
     const { addUpdateResponse, addUpdateError, addUpdateLoading, setChildMaritalStatusData } = useAddUpdateChildMaritalStatus();
 
+    const [isFormInitialized, setIsFormInitialized] = useState(false); // Track if the form has been initialized
+    const { data: childMaritalStatusData } = useGetChildMaritalStatus(Number(child?.childMaritalStatus?.id), {
+      enabled: !!child?.childMaritalStatus?.id && !isNew && !isFormInitialized,
+    });
+
+    useEffect(() => {
+      if (childMaritalStatusData && !isNew) {
+        formRef.setFieldsValue({
+          orphanClassification: childMaritalStatusData.orphanClassification,
+          fatherDateOfDeath: childMaritalStatusData.fatherDateOfDeath,
+          guardianName: childMaritalStatusData.guardianName,
+          guardianNationalID: childMaritalStatusData.guardianNationalID,
+          guardianRelationship: childMaritalStatusData.guardianRelationship,
+          numOfSibiling: childMaritalStatusData.numOfSibiling,
+        });
+        setDateOfBeathImageUrl(
+          childMaritalStatusData.dateOfBeathImage
+            ? [{ link: childMaritalStatusData.dateOfBeathImage }]
+            : []
+        );
+        setGuardianDocument(
+          childMaritalStatusData.guardianDocument
+            ? [{ link: childMaritalStatusData.guardianDocument }]
+            : []
+        );
+  
+        setIsFormInitialized(true);
+      }
+    }, [childMaritalStatusData, formRef]);
+
     const saveEntity = (values: IChildMaritalStatus) => {
       const entity: IChildMaritalStatus = {
+        ...childMaritalStatusData,
         ...values,
         dateOfBeathImage:
         dateOfBeathImageUrl && dateOfBeathImageUrl?.length ? dateOfBeathImageUrl[0]?.link || dateOfBeathImageUrl[1]?.link || null : null,

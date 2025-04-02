@@ -8,6 +8,7 @@ import UploadImage from "uploads/UploadImage";
 import useAddUpdateChildHealthStatus from "@/hooks/guardians/addUpdateChildHealthStatus";
 import { toast } from "react-toastify";
 import { ChildDTO } from "@/types/child";
+import useGetChildHealthStatus from "@/hooks/children/useGetChildHealthStatus";
 
 
 type ChildProps = {
@@ -22,7 +23,8 @@ const StepTwo = ({ child, handleNext }: ChildProps) => {
     const { TextArea } = Input;
     const router = useRouter();
     const { id } = router.query;
-    const isNew = id === undefined;
+    const isNew = id?.[0] === 'new';
+
     const healthStatusValues = Object.keys(HealthStatus);
     const mentalIllnessTypesValues = Object.keys(MentalIllnessTypes);
     const sychologicalHealthTypesValues = Object.keys(SychologicalHealthTypes);
@@ -31,11 +33,62 @@ const StepTwo = ({ child, handleNext }: ChildProps) => {
     const [mentalIllnessUrl, setMentalIllnessUrl] = useState<{ id?: number; link?: string }[]>([]);
     const [sychologicalHealthUrl, setSychologicalHealthUrl] = useState<{ id?: number; link?: string }[]>([]);
 
-    const [childNotes, setChildNotes] = useState([{ id: null, notes: { id: null, note: '' }}]);
+    const [childNotes, setChildNotes] = useState<{ id: number | null; notes: { id: number | null; note: string } }[]>([{ id: null, notes: { id: null, note: '' }}]);
     const { addUpdateResponse, addUpdateError, addUpdateLoading, setChildHealthStatusData } = useAddUpdateChildHealthStatus();
+    const [isFormInitialized, setIsFormInitialized] = useState(false); // Track if the form has been initialized
+
+    const { data: childHealthStatusData } = useGetChildHealthStatus(Number(child?.childHealthStatus?.id), {
+      enabled: !!child?.childHealthStatus?.id && !isNew && !isFormInitialized,
+    });
+
+  useEffect(() => {
+    if (childHealthStatusData && !isNew) {
+      formRef.setFieldsValue({
+        healthStatus: childHealthStatusData.healthStatus,
+        chronicDisease: !!childHealthStatusData.chronicDisease,
+        hasDisability: !!childHealthStatusData.hasDisability,
+        hasMentalIllness: !!childHealthStatusData.hasMentalIllness,
+        mentalIllnessType: childHealthStatusData.mentalIllnessType,
+        sychologicalHealth: !!childHealthStatusData.sychologicalHealth,
+        sychologicalHealthType: childHealthStatusData.sychologicalHealthType,
+        healthReport: childHealthStatusData.healthReport,
+      });
+
+      setDisabilityUrl(
+        childHealthStatusData.disabilityImage
+          ? [{ link: childHealthStatusData.disabilityImage }]
+          : []
+      );
+      setMentalIllnessUrl(
+        childHealthStatusData.mentalIllnessImage
+          ? [{ link: childHealthStatusData.mentalIllnessImage }]
+          : []
+      );
+      setSychologicalHealthUrl(
+        childHealthStatusData.sychologicalHealthImage
+          ? [{ link: childHealthStatusData.sychologicalHealthImage }]
+          : []
+      );
+
+      if (!isNew && childHealthStatusData.childHealthNotes && childHealthStatusData.childHealthNotes?.length > 0) {
+        setChildNotes(
+          childHealthStatusData.childHealthNotes
+            ? childHealthStatusData.childHealthNotes.map(childHealthNote => ({
+                id: childHealthNote.id ?? null,
+                notes: { id: childHealthNote.notes?.id ?? null, note: childHealthNote.notes?.note || '' },
+              }))
+            : []
+        );
+      } else {
+        setChildNotes([{ id: null, notes: { id: null, note: '' }}]);
+      }
+      setIsFormInitialized(true);
+    }
+  }, [childHealthStatusData, formRef]);
 
     const saveEntity = (values: IChildHealthStatus) => {
       const entity: IChildHealthStatus = {
+        ...childHealthStatusData,
         ...values,
         disabilityImage: disabilityUrl && disabilityUrl.length ? disabilityUrl[0]?.link || disabilityUrl[1]?.link || null : null,
         mentalIllnessImage:

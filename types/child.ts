@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import {
   DisabilityTypes,
   MentalIllnessTypes,
@@ -7,6 +8,7 @@ import {
   SponsershipParty,
   SponsershipDuration,
   OrphanClassification,
+  HealthStatus,
 } from "./enm";
 
 import {
@@ -49,6 +51,7 @@ export type ChildSponsorShipNotesDTO = {
 
 export type ChildHealthStatusDTO = {
   id?: number;
+  healthStatus?:HealthStatus | null;
   chronicDisease?: boolean;
   hasDisability?: boolean;
   disabilityType?: DisabilityTypes;
@@ -115,7 +118,16 @@ export type ChildEducationStatusDTO = {
 export type ChildMaritalStatusDTO = {
   id?: number;
   orphanClassification?: OrphanClassification;
-  fatherDateOfDeath?: any;
+  fatherDateOfDeath?: dayjs.Dayjs | null;
+  guardianName?: string | null;
+  guardianNationalID?: string | null;
+  guardianRelationship?: string | null;
+  guardianDocument?: string | null;
+  lostHousing?: boolean | null;
+  lostLimbs?: boolean | null;
+  lostSight?: boolean | null;
+  losthearorspeak?: boolean | null;
+  hasChronicDiseases?: boolean | null;
   dateOfBeathImage?: string;
   numOfSibiling?: number;
   child?: ChildDTO;

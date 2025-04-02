@@ -2,15 +2,13 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Form, Input, Button, Select, Checkbox } from "antd";
 import { useTranslation } from "next-i18next";
-import { HealthStatus, MentalIllnessTypes, SychologicalHealthTypes } from "@/types/enm";
-import { IChildHealthStatus } from "@/types/child/healthStatus";
-import UploadImage from "uploads/UploadImage";
-import useAddUpdateChildHealthStatus from "@/hooks/guardians/addUpdateChildHealthStatus";
+import { Diseases } from "@/types/enm";
 import { toast } from "react-toastify";
-import { IChild } from "@/types/child/profile";
 import { IChildMaritalStatus } from "@/types/child/childMartialStatus";
 import useAddUpdateChildMaritalStatus from "@/hooks/guardians/addUpdateChildMaritalStatus";
 import { ChildDTO } from "@/types/child";
+import useGetChildMaritalStatus from "@/hooks/children/useGetChildMaritalStatus";
+import useUpdateScore from "@/hooks/guardians/updateScore";
 
 
 type ChildProps = {
@@ -25,14 +23,47 @@ const StepSix = ({ child, handleNext }: ChildProps) => {
     const { TextArea } = Input;
     const router = useRouter();
     const { id } = router.query;
-    const isNew = id === undefined;
+    const isNew = id?.[0] === 'new';
 
-    const [childNotes, setChildNotes] = useState([{ id: null, notes: { id: null, note: '' }}]);
+    const [childNotes, setChildNotes] = useState<{ id: number | null; notes: { id: number | null; note: string } }[]>([{ id: null, notes: { id: null, note: '' }}]);
 
     const { addUpdateResponse, addUpdateError, addUpdateLoading, setChildMaritalStatusData } = useAddUpdateChildMaritalStatus();
 
-    const saveEntity = (values: IChildMaritalStatus) => {
+    const [isFormInitialized, setIsFormInitialized] = useState(false); 
+    const { data: childMaritalStatusData } = useGetChildMaritalStatus(Number(child?.childMaritalStatus?.id), {
+      enabled: !!child?.childMaritalStatus?.id && !isNew && !isFormInitialized,
+    });
+
+    const { setChildScore } = useUpdateScore();
+
+    useEffect(() => {
+      if (childMaritalStatusData && !isNew) {
+        formRef.setFieldsValue({
+          lostHousing: !!childMaritalStatusData.lostHousing,
+          lostLimbs: !!childMaritalStatusData.lostLimbs,
+          lostSight: !!childMaritalStatusData.lostSight,
+          losthearorspeak: !!childMaritalStatusData.losthearorspeak,
+          hasChronicDiseases: !!childMaritalStatusData.hasChronicDiseases,
+        });
+        if (!isNew && childMaritalStatusData.childMaritalNotes && childMaritalStatusData.childMaritalNotes?.length > 0) {
+          setChildNotes(
+            childMaritalStatusData.childMaritalNotes
+              ? childMaritalStatusData.childMaritalNotes.map(childMaritalNote => ({
+                  id: childMaritalNote.id ?? null,
+                  notes: { id: childMaritalNote.notes?.id ?? null, note: childMaritalNote.notes?.note || '' },
+                }))
+              : []
+          );
+        } else {
+          setChildNotes([{ id: null, notes: { id: null, note: '' }}]);
+        }
+        setIsFormInitialized(true);
+      }
+    }, [childMaritalStatusData, formRef]);
+
+    const saveEntity = async (values: IChildMaritalStatus) => {
       const entity: IChildMaritalStatus = {
+        ...childMaritalStatusData,
         ...values,
         childMaritalNotes: childNotes.map(childNote => ({
           id: childNote.id,
@@ -45,6 +76,29 @@ const StepSix = ({ child, handleNext }: ChildProps) => {
       };
       console.log('entity six: ', entity);
       setChildMaritalStatusData(entity);
+
+      let score = 0;
+      if (values.lostHousing) {
+        score += Diseases.lostHousing;
+      }
+      if (values.lostLimbs) {
+        score += Diseases.lostLimbs;
+      }
+      if (values.lostSight) {
+        score += Diseases.lostSight;
+      }
+      if (values.losthearorspeak) {
+        score += Diseases.Lostabilitytohearorspeak;
+      }
+      if (values.hasChronicDiseases) {
+        score += Diseases.chronicDiseases;
+      }
+      const scoreData = {
+        childId: child?.id,
+        score: score,
+      };
+      console.log("scoreData: ",scoreData);
+      setChildScore(scoreData)
     };
 
 

@@ -1,17 +1,14 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Form, Input, Button, Select, Checkbox } from "antd";
+import { Form, Input, Button, Select } from "antd";
 import { useTranslation } from "next-i18next";
-import { HealthStatus, LastLevelOfEducation, MentalIllnessTypes, OrphanClassification, SychologicalHealthTypes } from "@/types/enm";
-import { IChildHealthStatus } from "@/types/child/healthStatus";
+import { LastLevelOfEducation } from "@/types/enm";
 import UploadImage from "uploads/UploadImage";
-import useAddUpdateChildHealthStatus from "@/hooks/guardians/addUpdateChildHealthStatus";
 import { toast } from "react-toastify";
-import { IChild } from "@/types/child/profile";
-import { IChildMaritalStatus } from "@/types/child/childMartialStatus";
 import { IChildEducationStatus } from "@/types/child/childEducationStatus";
 import useAddUpdateChildEducationStatus from "@/hooks/guardians/addUpdateChildEducationStatus";
 import { ChildDTO } from "@/types/child";
+import useGetChildEducationStatus from "@/hooks/children/useGetChildEducationStatus";
 
 
 type ChildProps = {
@@ -26,15 +23,53 @@ const StepFour = ({ child, handleNext }: ChildProps) => {
     const { TextArea } = Input;
     const router = useRouter();
     const { id } = router.query;
+    const isNew = id?.[0] === 'new';
+
     const lastLevelOfEducationValues = Object.keys(LastLevelOfEducation);
 
-    const [childNotes, setChildNotes] = useState([{ id: null, notes: { id: null, note: '' }}]);
+    const [childNotes, setChildNotes] = useState<{ id: number | null; notes: { id: number | null; note: string } }[]>([{ id: null, notes: { id: null, note: '' }}]);
     const [lastLevelOfEducationImageUrl, setLastLevelOfEducationImageUrl] = useState<{ id?: number; link?: string }[]>([]);
 
-  const { addUpdateResponse, addUpdateError, addUpdateLoading, setChildEducationStatusData } = useAddUpdateChildEducationStatus();
+    const { addUpdateResponse, addUpdateError, addUpdateLoading, setChildEducationStatusData } = useAddUpdateChildEducationStatus();
+
+    const [isFormInitialized, setIsFormInitialized] = useState(false);
+    const { data: childEducationStatusData } = useGetChildEducationStatus(Number(child?.childEducationStatus?.id), {
+      enabled: !!child?.childEducationStatus?.id && !isNew && !isFormInitialized,
+    });
+
+    useEffect(() => {
+      if (childEducationStatusData && !isNew) {
+        formRef.setFieldsValue({
+          lastLevelOfEducation: childEducationStatusData.lastLevelOfEducation,
+          hoppy: childEducationStatusData.hoppy,
+        });
+
+        setLastLevelOfEducationImageUrl(
+          childEducationStatusData.lastLevelOfEducationImage
+            ? [{ link: childEducationStatusData.lastLevelOfEducationImage }]
+            : []
+        );
+
+        if (!isNew && childEducationStatusData.childEducationNotes && childEducationStatusData.childEducationNotes?.length > 0) {
+          setChildNotes(
+            childEducationStatusData.childEducationNotes
+              ? childEducationStatusData.childEducationNotes.map(childEducationNote => ({
+                  id: childEducationNote.id ?? null,
+                  notes: { id: childEducationNote.notes?.id ?? null, note: childEducationNote.notes?.note || '' },
+                }))
+              : []
+          );
+        } else {
+          setChildNotes([{ id: null, notes: { id: null, note: '' }}]);
+        }
+
+        setIsFormInitialized(true);
+      }
+    }, [childEducationStatusData, formRef]);
 
     const saveEntity = (values: IChildEducationStatus) => {
       const entity: IChildEducationStatus = {
+        ...childEducationStatusData,
         ...values,
         child: child,
         lastLevelOfEducationImage:
@@ -135,10 +170,10 @@ const StepFour = ({ child, handleNext }: ChildProps) => {
         </Form.Item>
 
         <UploadImage
-          id="dateOfBeathImage"
-          label={translate("messages:dateOfBeathImage")}
+          id="lastLevelOfEducationImage"
+          label={translate("messages:lastLevelOfEducationImage")}
           viewType="defaultView"
-          key="dateOfBeathImage"
+          key="lastLevelOfEducationImage"
           defaultImages={[
             ...(lastLevelOfEducationImageUrl && lastLevelOfEducationImageUrl[0]?.link
               ? [

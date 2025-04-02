@@ -103,6 +103,10 @@ const UpdateForm = () => {
     }
   };
 
+  const handleSubmitSteps = () => {
+    router.push('/guardian-child/list');
+  };
+
   useEffect(() => {
     if (!isNew && childId) {
       setChildEntity(childData);
@@ -136,7 +140,7 @@ const UpdateForm = () => {
             {stepNumber === 2 && <StepThree handleNext={handleNext} child={childEntity}/>}
             {stepNumber === 3 && <StepFour handleNext={handleNext} child={childEntity}/>}
             {stepNumber === 4 && <StepFive handleNext={handleNext} child={childEntity}/>}
-            {stepNumber === 5 && <StepSix handleNext={handleNext} child={childEntity}/>}
+            {stepNumber === 5 && <StepSix handleNext={handleSubmitSteps} child={childEntity}/>}
             <Actions
               lastStep={steps.length - 1}
               stepId={steps[stepNumber].formName}
