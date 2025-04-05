@@ -157,7 +157,7 @@ const Navbar = ({
                             </a>
                           </li>
                         )}
-                        {user?.authorities?.includes("ROLE_GURANTOR") && (
+                        {user?.authorities?.includes("ROLE_GUARANTOR") && (
                           <li>
                             <a
                               className={

@@ -45,6 +45,13 @@
   "noChildrenFound": "لا يوجد اطفال",
   "renewSponsorship": "تجديد الكفالة",
   "transactions": "المعاملات",
+  "noTransactionsFound": "لا توجد معاملات",
+  "sponsoredBy": "كفالة من",
+  "expirationDate": "تاريخ انتهاء الكفالة",
+  "startDate": "تاريخ البداية",
+  "cost": "المبلغ",
+  "duration": "المدة",
+  "currency": "$",
   "saveAndContinue": "الحفظ والاستمرار",
   "saveAndFinish": "الحفظ والانهاء",
   "ORPHAN": {
