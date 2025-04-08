@@ -41,6 +41,7 @@
   "sponsorshipName": "Sponsorship Name",
   "collectedUntilNow": "Collected Until Now",
   "renewSponsorship": "Renew Sponsorship",
+  "transactionReports": "Transaction Reports",
   "transactions": "Transactions",
   "noTransactionsFound": "No Transactions Found",
   "sponsoredBy": "Sponsored By",
@@ -51,6 +52,7 @@
   "currency": "$",
   "noChildrenFound": "No Children found",
   "NO_PARTICIPATIONFOUND": "No Prticipaton Found",
+  "NO_TRANSACTIONFOUND": "No Transaction Found",
   "PARTICIPATIONS": "Participations",
   "saveAndContinue": "Save and continue",
   "saveAndFinish": "Save and finish",
@@ -101,5 +103,6 @@
     "harms": "Harms",
     "steps-locked": "Steps are locked until you complete the first step"
   },
-  "ADD_CHILD": "Add Child"
+  "ADD_CHILD": "Add Child",
+  "amountReceived": "Amount Recevied"
 }

@@ -35,6 +35,7 @@
   "HOW_MANY_TIMES": "عدد مرات التبرع",
   "HOW_MANY_TIMES_CLARIFY_MESSAGE": "(راح يتم سحب المبلغ من تاريخ اول دفعة) ",
   "NO_PARTICIPATIONFOUND": "لا يوجد مشاراكات",
+  "NO_TRANSACTIONFOUND": "لا توجد معاملات",
   "PARTICIPATIONS": "المشاراكات",
   "sponsoredChildren": "اطفال تحت كفالتك",
   "guardianshipChildren": "اطفال تحت وصايتك",
@@ -44,6 +45,7 @@
   "collectedUntilNow": "المجمع حتي الان",
   "noChildrenFound": "لا يوجد اطفال",
   "renewSponsorship": "تجديد الكفالة",
+  "transactionReports": "تقارير المعاملات",
   "transactions": "المعاملات",
   "noTransactionsFound": "لا توجد معاملات",
   "sponsoredBy": "كفالة من",
@@ -101,5 +103,6 @@
     "harms": "الاضرار",
     "steps-locked": "الخطوات مغلقة حتى تكمل الخطوة الأولى"
   },
-  "ADD_CHILD": "إضافة طفل"
+  "ADD_CHILD": "إضافة طفل",
+  "amountReceived": "المبلغ المستلم"
 }

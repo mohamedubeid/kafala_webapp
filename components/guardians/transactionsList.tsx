@@ -12,10 +12,8 @@ const TransactionsList = () => {
   const { t: translate } = useTranslation();
   const router = useRouter();
   const { id } = router.query;
-  console.log('id: ', id);
   const guardianId = id && typeof id === "string" ? parseInt(id, 10) : NaN;
   const { data: childTransactions } = useGetChildTransactions(guardianId);
-console.log("childTransactions: ", childTransactions);
   return (
     <section className="main-sections">
       <div className="container">
