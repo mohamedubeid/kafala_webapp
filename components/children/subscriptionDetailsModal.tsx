@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, Modal } from "antd";
+import { Button, message, Modal } from "antd";
+import { CopyOutlined } from "@ant-design/icons";
 
 interface SubscriptionModalProps {
   isVisible: boolean;
@@ -19,7 +20,10 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
     fontSize: "20px",
     marginBottom: "5px",
   };
-
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(String(id));
+    message.success("تم نسخ رقم التحويل");
+  };
   return (
     <Modal
       title={
@@ -47,7 +51,13 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
       </div>
 
       <div className="modal-section mt-4">
-      <h1 style={{ ...titleStyle, color: "#0B7275" }}>رقم التحويل</h1>
+      <div className="flex flex-center gap-1">
+        <h1 style={{ ...titleStyle, color: "#0B7275" }}>رقم التحويل</h1>
+        <CopyOutlined
+          onClick={copyToClipboard}
+          style={{ fontSize: "18px", cursor: "pointer", color: "#0B7275" }}
+        />
+      </div>
       <h2
         style={{
           fontSize: "24px",
@@ -63,6 +73,17 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
       >
         {id}
       </h2>
+      <p
+      style={{
+        marginTop: "8px",
+        fontSize: "14px",
+        color: "#555",
+        textAlign: "center",
+        fontWeight: 500,
+      }}
+  >
+    الرجاء التأكد من إرفاق <span style={{ color: "#0B7275", fontWeight: "bold" }}>رقم التحويل</span> اثناء عملية التحويل.
+  </p>
     </div>
 
 
