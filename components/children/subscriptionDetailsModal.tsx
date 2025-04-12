@@ -47,9 +47,24 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
       </div>
 
       <div className="modal-section mt-4">
-        <h1 style={titleStyle}> رقم التحويل</h1>
-        <h3>{id}</h3>
-      </div>
+      <h1 style={{ ...titleStyle, color: "#0B7275" }}>رقم التحويل</h1>
+      <h2
+        style={{
+          fontSize: "24px",
+          fontWeight: "bold",
+          color: "#0B7275",
+          textAlign: "center",
+          backgroundColor: "#f3f8f8",
+          padding: "10px",
+          borderRadius: "8px",
+          border: "1px dashed #0B7275",
+          direction: "ltr", 
+        }}
+      >
+        {id}
+      </h2>
+    </div>
+
 
       {/* Account Details Section */}
       <div className="modal-section mt-4">
