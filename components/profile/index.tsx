@@ -13,15 +13,23 @@ import { filteredCountries } from "@/helpers/phoneCountries";
 import { UserType } from "@/types/user";
 import useUpdatePassword from "@/hooks/authentication/useUpdatePassword";
 import useUpdateUser from "@/hooks/users/update";
+import { useRouter } from "next/router";
 
 const Profile = () => {
   const { t: translate } = useTranslation(["messages"]);
   const { user } = useAuth();
+  const router = useRouter();
   const [formRef] = Form.useForm();
   const [passForm] = Form.useForm();
   const { updateUserPassword } = useUpdatePassword();
   const { setUpdatedUser, updateResponse, updateError, updateLoading } = useUpdateUser();
   const [attachUrl, setAttachmentUrl] = useState<{ id?: number; link?: string }[]>([]);
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/");
+    }
+  }, [user, router]);
 
   const removeImageUrl = (imageIndex: number | void) => {
     const ImagesList = attachUrl;

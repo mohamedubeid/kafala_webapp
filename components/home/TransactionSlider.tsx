@@ -18,7 +18,6 @@ const TransactionSlider = () => {
   const page = 1;
   const size = 4;
   const { data:Transactions } = useGetTransactionReports(size, page);
-  console.log("slider data: ", Transactions);
   return (
     <div className="w-full md:h-[500px] mt-8">
 

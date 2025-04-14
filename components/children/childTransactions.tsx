@@ -8,9 +8,7 @@ const ChildTransactions = () => {
   const router = useRouter();
   const { id } = router.query;
   const parsedId = typeof id === "string" ? parseInt(id, 10) : undefined;
-  console.log("parsedId", parsedId);
   const { data: childTransactionReportsData } = useGetChildTransactionReports(parsedId ?? 0);
-  console.log("childTransactionReportsData", childTransactionReportsData);
   const { t: translate } = useTranslation();
   return (
     <>

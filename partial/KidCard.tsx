@@ -4,12 +4,14 @@ import { Button, Image } from "antd";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import React from "react";
+import { useAuth } from "@/contexts/AuthContext";
 
 type KidCardProps = {
   kid: ChildDTO;
 };
 
 const KidCard = ({ kid }: KidCardProps) => {
+    const { user } = useAuth();
   const router = useRouter();
   const { t: translate } = useTranslation("home");
   const { t: translateCommon } = useTranslation("common");
@@ -122,19 +124,20 @@ const KidCard = ({ kid }: KidCardProps) => {
               : 0}
           </span>
         </div>
-
-        <Button
-          onClick={() => goToChild(kid?.id)}
-          className={
-            isSponsored && kid.totalCost > 0
-              ? "mt-3 h-[45px] w-full rounded-full border border-solid border-gray-200 bg-gray-300 text-lg font-semibold !text-gray duration-300"
-              : "mt-3 h-[45px] w-full rounded-full border border-solid border-gray-200 bg-white text-lg font-semibold !text-gray duration-300 hover:!border-kafalaPrimary-300 hover:!bg-kafalaPrimary-300"
-          }
-        >
-          {isSponsored && kid.totalCost > 0
-            ? translateCommon("ALREADY_DONATED")
-            : translateCommon("DONATE_NOW")}
-        </Button>
+        {user?.authorities?.includes("ROLE_GUARANTOR") && (
+          <Button
+            onClick={() => goToChild(kid?.id)}
+            className={
+              isSponsored && kid.totalCost > 0
+                ? "mt-3 h-[45px] w-full rounded-full border border-solid border-gray-200 bg-gray-300 text-lg font-semibold !text-gray duration-300"
+                : "mt-3 h-[45px] w-full rounded-full border border-solid border-gray-200 bg-white text-lg font-semibold !text-gray duration-300 hover:!border-kafalaPrimary-300 hover:!bg-kafalaPrimary-300"
+            }
+          >
+            {isSponsored && kid.totalCost > 0
+              ? translateCommon("ALREADY_DONATED")
+              : translateCommon("DONATE_NOW")}
+          </Button>
+          )}
       </div>
     </div>
   );
