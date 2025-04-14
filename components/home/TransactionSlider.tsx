@@ -9,12 +9,15 @@ import "swiper/css/effect-fade";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import useGetTransactionReports from "@/hooks/children/getTransactionReports";
+import Link from "next/link";
 
 const TransactionSlider = () => {
 
   const { t: translate } = useTranslation("home");
 
-  const { data:Transactions } = useGetTransactionReports(4);
+  const page = 1;
+  const size = 4;
+  const { data:Transactions } = useGetTransactionReports(size, page);
   console.log("slider data: ", Transactions);
   return (
     <div className="w-full md:h-[500px] mt-8">
@@ -26,7 +29,7 @@ const TransactionSlider = () => {
         modules={[EffectFade, Autoplay, Pagination, Navigation]}
         className="transaction-slider-container"
       >
-        {Transactions?.map((item) => (
+        {Transactions?.data.map((item) => (
           <SwiperSlide key={item.id}>
             <div className="w-full md:h-[500px]  flex flex-col md:flex-row items-center justify-center px-6 gap-6 text-white  py-4">
               <div className="flex-1 flex items-center justify-center">
@@ -50,13 +53,13 @@ const TransactionSlider = () => {
 
               <div className="flex-1 flex flex-col items-start justify-center text-left space-y-6 max-w-md">
                 <p className="text-lg leading-relaxed text-right">{item.desceription}</p>
-                <Button
-                  size="large"
+                <Link
+                  href="/children/transactions-reports"
                   type="primary"
-                  className="mt-7 h-[50px] w-[200px] rounded-full border border-solid border-kafalaPrimary bg-kafalaPrimary-400 text-xl !text-white duration-300 hover:!border-kafalaPrimary-300 hover:!bg-kafalaPrimary-300 max-lg:!mx-auto max-lg:block lg:w-full"
+                  className="bg-kafalaPrimary-400 !text-white duration-300 hover:!border-kafalaPrimary-300 hover:!bg-kafalaPrimary-300 px-16 py-4 rounded-full"
                   >
                   {translate("SHOW_ALL_TRANSACTIONS")}
-                </Button>
+                </Link>
               </div>
             </div>
           </SwiperSlide>

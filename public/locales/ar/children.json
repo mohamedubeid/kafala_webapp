@@ -104,5 +104,7 @@
     "steps-locked": "الخطوات مغلقة حتى تكمل الخطوة الأولى"
   },
   "ADD_CHILD": "إضافة طفل",
-  "amountReceived": "المبلغ المستلم"
+  "amountReceived": "المبلغ المستلم",
+  "description": "الوصف",
+  "SHOW_VIDEO": "عرض الفيديو"
 }

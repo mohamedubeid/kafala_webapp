@@ -282,7 +282,6 @@ const KidsList = () => {
                 );
               })}
             </Row>
-            {/* {!orphanClassification && ( */}
             <div className="data-pagination">
               <Pagination
                 pageSize={size}
@@ -298,7 +297,6 @@ const KidsList = () => {
                 }}
               />
             </div>
-            {/* )} */}
           </>
         ) : (
           <div className="mt-8 text-center text-lg">

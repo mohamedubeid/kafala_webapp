@@ -185,6 +185,20 @@ const Navbar = ({
                             {translate("CHILDRENS")}
                           </a>
                         </li>
+                        <li>
+                          <a
+                            className={
+                              activeLink === "/children/transactions-reports"
+                                ? "activeLink"
+                                : ""
+                            }
+                            onClick={() =>
+                              handleLinkClick("/children/transactions-reports")
+                            }
+                          >
+                            {translate("TRANSACTIONS_REPORTS")}
+                          </a>
+                        </li>
                       </ul>
                     </div>
                   )}
@@ -195,7 +209,7 @@ const Navbar = ({
                           <Button
                           type="text"
                             icon={<UserOutlined style={{ fontSize: '18px' }}/>}
-                            className="btn-login h-[40px] min-w-[100px] !border-none !text-white !outline-none duration-300 !bg-transparent !shadow-none !outline-none flex items-center gap-2"
+                            className="btn-login h-[40px] min-w-[100px] !border-none !text-white !outline-none duration-300 !bg-transparent !shadow-none flex items-center gap-2"
                           >
                             {translate("ACCOUNT")}
                             <CaretDownOutlined />

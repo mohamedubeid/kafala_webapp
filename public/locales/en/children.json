@@ -104,5 +104,7 @@
     "steps-locked": "Steps are locked until you complete the first step"
   },
   "ADD_CHILD": "Add Child",
-  "amountReceived": "Amount Recevied"
+  "amountReceived": "Amount Recevied",
+  "description": "Description",
+  "SHOW_VIDEO": "Show Video"
 }
