@@ -6,5 +6,6 @@ export type ChildTransactionReportDTO = {
   video: string;
   amount_received: number;
   desceription: string;
-  child: ChildDTO
+  child: ChildDTO;
+  id?: number;
 }

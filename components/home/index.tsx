@@ -5,6 +5,7 @@ import Fields from "./Fields";
 import Kids from "./Kids";
 import About from "./About";
 import Aos from "aos";
+import TransactionSlider from "./TransactionSlider";
 
 const HomePage = () => {
   useEffect(() => {
@@ -17,6 +18,7 @@ const HomePage = () => {
   return (
     <HomeLayout navbarShadow navbarStatic={false}>
       <Header />
+      <TransactionSlider />
       <Kids />
       <Fields />
       <About />

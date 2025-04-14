@@ -48,8 +48,11 @@ header .swiper-pagination .swiper-pagination-bullet {
 header .swiper-pagination .swiper-pagination-bullet-active {
   @apply bg-kafalaPrimary !border-kafalaPrimary;
 }
-/* End Header */
-/* Start Fields */
+
+.transaction-slider-container .swiper-slide-active {
+  @apply bg-kafalaPrimary;
+}
+
 
 .fields-overlay {
   background: rgba(186, 216, 216, 0.17);
