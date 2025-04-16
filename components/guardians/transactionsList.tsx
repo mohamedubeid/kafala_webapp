@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Col, Row } from "antd";
-import Link from "next/link";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
@@ -14,6 +13,11 @@ const TransactionsList = () => {
   const { id } = router.query;
   const guardianId = id && typeof id === "string" ? parseInt(id, 10) : NaN;
   const { data: childTransactions } = useGetChildTransactions(guardianId);
+  useEffect(() => {
+    if (childTransactions && childTransactions.length === 0) {
+      router.push("/guardian-child/list");
+    }
+  }, [childTransactions, router]);
   return (
     <section className="main-sections">
       <div className="container">

@@ -16,7 +16,7 @@ const GuardiansList = () => {
   return (
     <section className="main-sections">
       <div className="container">
-        <div className="kids-header flex flex-wrap items-start justify-between items-center gap-3 md:text-lg mb-12">
+        <div className="kids-header flex flex-wrap items-start justify-between gap-3 md:text-lg mb-12">
           <div className="kids-title section-title mb-0">
             {translate("children:guardianshipChildren")}
           </div>
@@ -59,11 +59,12 @@ const GuardiansList = () => {
                         </div>
                         <div className="block lg:hidden">
                           <Button
-                            className="h-[42px] w-[110px] rounded-[22px] border-none bg-kafalaPrimary text-[14px] font-[600] !text-white duration-300  hover:!bg-kafalaPrimary-400"
+                            className="h-[42px] w-[110px] rounded-[22px] border-none bg-kafalaPrimary text-[14px] font-[600] !text-white duration-300  hover:!bg-kafalaPrimary-400 disabled:!bg-[#d9d9d9]  disabled:cursor-not-allowed "
                             onClick={(e) => {
                               e.stopPropagation();
                               router.push(`/guardian-child/transactions/${guardianChild.id}`);
                             }}
+                            disabled={guardianChild.totalCost == 0}
                             >
                             {translate("children:transactions")}
                           </Button>
@@ -93,11 +94,15 @@ const GuardiansList = () => {
                         </div>
                         <div className="hidden lg:block">
                         <Button
-                          className="h-[42px] w-[110px] rounded-[22px] border-none bg-kafalaPrimary text-[14px] font-[600] !text-white duration-300 hover:!bg-kafalaPrimary-400 z-[10] relative"
+                            className="h-[42px] w-[110px] rounded-[22px] border-none bg-kafalaPrimary text-[14px] font-[600] !text-white duration-300 
+                            hover:!bg-kafalaPrimary-400 
+                            disabled:!bg-[#d9d9d9]  disabled:cursor-not-allowed
+                            z-[10] relative"
                           onClick={(e) => {
-                            e.stopPropagation(); // Prevent the click event from propagating to the parent <Link>
+                            e.stopPropagation();
                             router.push(`/guardian-child/transactions/${guardianChild.id}`);
                           }}
+                          disabled={guardianChild.totalCost == 0}
                         >
                           {translate("children:transactions")}
                         </Button>

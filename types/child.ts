@@ -20,6 +20,7 @@ import {
   NotesDTO,
 } from "./note";
 import { UserType } from "./user";
+import { ChildTransactionReportDTO } from './childTransactionReport';
 
 export type SponsershipTypesDTO = {
   type: string;
@@ -92,6 +93,7 @@ export type ChildDTO = {
   childMaritalStatus?: ChildMaritalStatusDTO;
   childEducationStatus?: ChildEducationStatusDTO;
   childSponsorShip?: ChildSponsorShipDTO;
+  childTransactions? : ChildTransactionReportDTO[];
 };
 
 export type ChildSponsorShip = {
